@@ -10,7 +10,11 @@ require('dotenv').config();
 
 app.use(express.json());
 var accountRouter = require('./api/account/account.router');
+var jobRouter = require('./api/job/job.router');
+
 app.use('/api/account',accountRouter);
+app.use('/api/job',jobRouter);
+
 
 // //use cors to allow cross origin resource sharing
 // app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
