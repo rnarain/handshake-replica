@@ -1,0 +1,92 @@
+body {
+  font-family: "Segoe UI", "Roboto", "Helvetica Neue", "sans-serif";
+  padding-top: 50px;
+}
+
+
+.form-heading { color:#fff; font-size:23px;}
+.panel h2{ color:#444444; font-size:18px; margin:0 0 8px 0;}
+.panel p { color:#777777; font-size:14px; margin-bottom:30px; line-height:24px;}
+.login-form .form-control {
+  background: #f7f7f7 none repeat scroll 0 0;
+  border: 1px solid #d4d4d4;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 50px;
+  line-height: 50px;
+}
+.main-div {
+  background: #ffffff none repeat scroll 0 0;
+  border-radius: 2px;
+  margin: 10px auto 30px;
+  max-width: 38%;
+  padding: 50px 70px 70px 71px;
+  border: 2px solid black;
+}
+
+.login-form .form-group {
+  margin-bottom:10px;
+}
+
+.login-form .sidebar {
+  padding: 3% 3%;
+  background: #1569e0;
+  color: #fff;
+  justify-content: space-between;
+  height: 100vh;
+  overflow: auto;
+}
+
+.login-form .content {
+  padding: 10% 5%;
+}
+h1 {
+  font-size: 35px;
+  font-weight: 700;
+  line-height: 1.2
+}
+.login-form .main {
+  background-color: #fff;
+  padding: 9% 15%;
+  height: 100vh;
+  overflow: auto;
+}
+.margin70{
+  margin-top : 70px;
+}
+.form-group input{
+  margin-bottom: 10px;
+}
+ button {
+  border-radius: 3px;
+color: #fff;
+padding: 8px 40px;
+margin:10px 0px;
+}
+ 
+.forgot a {
+  color: #777777;
+  font-size: 14px;
+  text-decoration: underline;
+}
+.forgot {
+  text-align: left; margin-bottom:30px;
+}
+.botto-text {
+  color: #ffffff;
+  font-size: 14px;
+  margin: auto;
+}
+.back { text-align: left; margin-top:10px;}
+.back a {color: #444444; font-size: 13px;text-decoration: none;}
+
+.navbar-brand .navbar-brand__logo-full {
+  height: 20px;
+  vertical-align: middle;
+}
+
+.navbar{
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 0px;
+  background-color: white;
+}
