@@ -1,6 +1,5 @@
 body {
   font-family: "Segoe UI", "Roboto", "Helvetica Neue", "sans-serif";
-  padding-top: 50px;
 }
 
 
@@ -37,6 +36,7 @@ body {
   overflow: auto;
 }
 
+
 .login-form .content {
   padding: 10% 5%;
 }
@@ -51,9 +51,7 @@ h1 {
   height: 100vh;
   overflow: auto;
 }
-.margin70{
-  margin-top : 70px;
-}
+
 .form-group input{
   margin-bottom: 10px;
 }

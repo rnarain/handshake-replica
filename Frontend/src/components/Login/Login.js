@@ -51,18 +51,17 @@ class Login extends Component {
         //set the with credentials to true
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/login', data)
+        axios.post('http://localhost:3001/api/account/login', data)
             .then(response => {
                 console.log("Status Code : ", response.status);
-                if (response.status === 200) {
                     this.setState({
                         authFlag: true
                     })
-                } else {
-                    this.setState({
-                        authFlag: false
-                    })
                 }
+            ).catch( ex =>{
+                this.setState({
+                    authFlag: false
+                })
             });
     }
 
@@ -70,7 +69,7 @@ class Login extends Component {
         //redirect based on successful login
         let redirectVar = null;
         if (cookie.load('cookie')) {
-            redirectVar = <Redirect to="/home" />
+            redirectVar = <Redirect to="/student/home" />
         }
         return (
             <div>
@@ -99,7 +98,7 @@ class Login extends Component {
 
                     <div className="main col-sm-8">
                         <div className="centered-container top-aligned">
-                            <div data-bind="visible: true" data-knockout-className="NewUnknownEmailAddressView" id="ui-id-1">
+                            <div >
                                 <h1>Sign in</h1>
                                 <form>
                                     <h2 className="no-bottom-margin">Employers &amp; Students</h2>

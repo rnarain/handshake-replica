@@ -12,19 +12,56 @@ class Signup extends Component {
         super(props);
         //maintain the state required for this component
         this.state = {
+            fname:"",
+            lname:"",
+            college:"",
+            yearOfPassing:"",
+            major:"",
             email: "",
             password: "",
+            confpassword:"",
             authFlag: false
         }
         //Bind the handlers to this className
+        this.fnameChangeHandler = this.fnameChangeHandler.bind(this);
+        this.lnameChangeHandler = this.lnameChangeHandler.bind(this);
+        this.collegeChangeHandler = this.collegeChangeHandler.bind(this);
+        this.yearOfPassingHandler = this.yearOfPassingHandler.bind(this);
+        this.majorChangeHandler = this.majorChangeHandler.bind(this);
         this.emailChangeHandler = this.emailChangeHandler.bind(this);
         this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
+        this.confirmPasswordChangeHandler = this.confirmPasswordChangeHandler.bind(this);
         this.submitSignup = this.submitSignup.bind(this);
     }
     //Call the Will Mount to set the auth Flag to false
     componentWillMount() {
         this.setState({
             authFlag: false
+        })
+    }
+    fnameChangeHandler = (e) => {
+        this.setState({
+            fname: e.target.value
+        })
+    }
+    lnameChangeHandler = (e) => {
+        this.setState({
+            lname: e.target.value
+        })
+    }
+    collegeChangeHandler = (e) => {
+        this.setState({
+            college: e.target.value
+        })
+    }
+    yearOfPassingHandler = (e) => {
+        this.setState({
+            yearOfPassing: e.target.value
+        })
+    }
+    majorChangeHandler = (e) => {
+        this.setState({
+            major: e.target.value
         })
     }
     //email change handler to update state variable with the text entered by the user
@@ -39,19 +76,31 @@ class Signup extends Component {
             password: e.target.value
         })
     }
+    confirmPasswordChangeHandler = (e) => {
+        this.setState({
+            confpassword: e.target.value
+        })
+    }
     //submit Signup handler to send a request to the node backend
     submitSignup = (e) => {
         var headers = new Headers();
         //prevent page from refresh
         e.preventDefault();
         const data = {
+            fname:this.state.fname,
+            lname:this.state.lname,
+            college:this.state.college,
+            yearOfPassing:this.state.yearOfPassing,
+            major:this.state.major,
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
         }
+
+        console.log(data);
         //set the with credentials to true
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/Signup', data)
+        axios.post('http://localhost:3001/api/account/createStudent', data)
             .then(response => {
                 console.log("Status Code : ", response.status);
                 if (response.status === 200) {
@@ -73,7 +122,7 @@ class Signup extends Component {
         //redirect based on successful Signup
         let redirectVar = null;
         if (cookie.load('cookie')) {
-            redirectVar = <Redirect to="/home" />
+            redirectVar = <Redirect to="/student/home" />
         }
 
         var years = [];
@@ -82,7 +131,7 @@ class Signup extends Component {
         }
         let listOfYears = years.map(year => {
             return (
-                <option value={year}> {year} </option>
+                <option key= {year} value={year}> {year} </option>
             )
         })
         return (
@@ -91,7 +140,7 @@ class Signup extends Component {
                 <div className="Signup-form">
 
                     <div className="sidebar col-sm-4">
-                        <a className="logo" href="https://www.joinhandshake.com"><img alt="Handshake logo image" src="https://handshake-production-cdn.joinhandshake.com/assets/logo-icon-2d294d9834da88f5fdf0ab747dd89fb15f8ab7c12a3e193294bab3d522d71a2c.svg" height="42" /></a>
+                        <a className="logo" href=""><img alt="Handshake logo image" src="https://handshake-production-cdn.joinhandshake.com/assets/logo-icon-2d294d9834da88f5fdf0ab747dd89fb15f8ab7c12a3e193294bab3d522d71a2c.svg" height="42" /></a>
                         <div className="content">
 
                             <h1 className="marketing-title">
@@ -111,45 +160,45 @@ class Signup extends Component {
 
                     <div className="main col-sm-8">
                         <div className="centered-container top-aligned">
-                            <div class="margin70">
+                            <div className="margin70">
                                 <form>
                                     <div className="form-group col-md-12">
-                                        <label for="email">College</label>
-                                        <input onChange={this.emailChangeHandler} type="text" className="form-control" name="college" placeholder="College" />
+                                        <label >College</label>
+                                        <input onChange={this.collegeChangeHandler} type="text" className="form-control" name="college" placeholder="College" />
                                     </div>
                                     <div className="form-group">
                                         <div className="col-md-6">
-                                            <label for="fname">First Name</label>
-                                            <input type="text" className="form-control" placeholder="First name" />
+                                            <label >First Name</label>
+                                            <input type="text" onChange={this.fnameChangeHandler} className="form-control" placeholder="First name" />
                                         </div>
                                         <div className="col-md-6">
-                                            <label for="lname">Last Name</label>
-                                            <input type="text" className="form-control" placeholder="Last name" />
+                                            <label >Last Name</label>
+                                            <input type="text" onChange={this.lnameChangeHandler} className="form-control" placeholder="Last name" />
                                         </div>
                                     </div>
                                     <div className="form-group">
                                         <div className="col-md-6">
-                                            <label for="lname">Major</label>
-                                            <input type="text" className="form-control" placeholder="Major" />
+                                            <label >Major</label>
+                                            <input type="text" onChange={this.majorChangeHandler} className="form-control" placeholder="Major" />
                                         </div>
                                         <div className="col-md-6">
-                                            <label for="fname">Year of passing</label>
-                                            <select class="form-control">{listOfYears}</select>
+                                            <label >Year of passing</label>
+                                            <select onChange={this.yearOfPassingHandler} className="form-control">{listOfYears}</select>
                                         </div>
 
                                     </div>
                                     <div className="form-group col-md-12">
-                                        <label for="email">Email</label>
+                                        <label >Email</label>
                                         <input onChange={this.emailChangeHandler} type="text" className="form-control" name="email" placeholder="Email" />
                                     </div>
                                     <div className="form-group">
                                         <div className="col-md-6">
-                                            <label for="password">Password</label>
+                                            <label >Password</label>
                                             <input onChange={this.passwordChangeHandler} type="password" className="form-control" name="password" placeholder="Password" />
                                         </div>
                                         <div className="col-md-6">
-                                            <label for="confpassword">Confirm Password</label>
-                                            <input onChange={this.passwordChangeHandler} type="password" className="form-control" name="confpassword" placeholder="Confirm Password" />
+                                            <label>Confirm Password</label>
+                                            <input onChange={this.confirmPasswordChangeHandler} type="password" className="form-control" name="confpassword" placeholder="Confirm Password" />
                                         </div>
                                     </div>
                                     <div className="form-group col-md-12">
