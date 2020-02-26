@@ -26,7 +26,7 @@ class Main extends Component {
                 {navRoute}
                 <Route exact path="/" render={() => <Redirect to="/login" />} />
                 <Route path="/login" component={Login}/>
-                <Route path="/student/home" component={StudentHome}/>
+                <Route path="/home" component={StudentHome}/>
                 <Route path="/signup" component={Signup}/>
                
             </div>

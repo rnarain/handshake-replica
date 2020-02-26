@@ -43,12 +43,19 @@ class Navbar extends Component {
                 <div className="container-fluid">
                     <div className="navbar-header">
                     <a className="navbar-brand" href="https://www.joinhandshake.com"><img className="navbar-brand__logo-full" alt="Handshake logo" src="https://handshake-production-cdn.joinhandshake.com/assets/official-logo-inline-dark-981d79fc9c40a824d7ce26778a438af16f6f0423016531d6de16cab2a08138a3.svg" /></a>
+                    
                     </div>
-                    <ul className="nav navbar-nav">
-                        <li className="active"><Link to="/home">Home</Link></li>
-                        <li><Link to="/create">Add a Book</Link></li>
-                        <li><Link to="/delete">Delete a Book</Link></li>
+                    <div className="navbar-header">
+                            <form className="form-inline my-2 my-lg-0 ml-auto">
+                <input className="form-control searchbox" type="search" placeholder="Search" aria-label="Search" />
+                <button className="btn btn-outline-white btn-md my-2 my-sm-0 ml-3 searchbutton" type="submit">Search</button>
+            </form>
+            </div>
+                    <ul className="nav navbar-nav navbar-right">
+                        <li><Link to="/postings">Jobs</Link></li>
+                        <li><Link to="/events">Events</Link></li>
                     </ul>
+                    
                     {navLogin}
                 </div>
             </nav>
