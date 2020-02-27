@@ -1,7 +1,16 @@
 const {
     createStudent,
-    login
+    login,
+    getStudentProfileDetails,
+    getEducationDetails,
+    getExperienceDetails
   } = require("./account.service");
+
+  let studentObj ={
+    studentprofile : "",
+    education : "",
+    experience : "",
+  }
   const { hashSync, genSaltSync, compareSync } = require("bcrypt");
   //const { sign } = require("jsonwebtoken");
   
@@ -33,7 +42,7 @@ const {
         }
         else{
           if(compareSync(body.password ,results[0].password)){
-          res.cookie('cookie',results[0],{maxAge: 900000, httpOnly: false, path : '/'});
+          res.cookie('cookie',results[0].studentID,{maxAge: 900000, httpOnly: false, path : '/'});
             return res.json({
               success: 1,
               data: results
@@ -47,6 +56,37 @@ const {
           }
         }
         
+      });
+    },
+    getStudentDetails : (req,res)=>{
+      const id = req.params.id;
+      
+      getStudentProfileDetails(id,(err, results) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        studentObj.studentprofile = results;
+      });
+      // getExperienceDetails(id,(err, results) => {
+      //   if (err) {
+      //     console.log(err);
+      //     return;
+      //   }
+      //   studentObj.experience = results;
+      // });
+      getEducationDetails(id,(err, results) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        studentObj.education = results;
+      });
+
+
+      return res.json({
+        success: 1,
+        data: studentObj
       });
     }
 }

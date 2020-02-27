@@ -12,7 +12,7 @@ class Skills extends Component {
                 <a href="#" className="btn btn-primary btn-sm"><i className="fa fa-plus"></i></a>
             </div>
         </div>
-        )
+        )   
     }
 }
 

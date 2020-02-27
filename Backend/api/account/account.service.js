@@ -104,25 +104,6 @@ module.exports = {
   },
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       // createStudent: (data, callBack) => {
       //   pool.query(
       //     `insert into account(type, email, password) 
@@ -194,9 +175,52 @@ module.exports = {
       login: (data, callBack) => {
         console.log(data);
         pool.query(
-          `select * from account where email= ?`,
+          `SELECT SP.studentID,AC.password FROM account As AC Join studentprofile AS SP on AC.accountID = SP.accountID where email = ?`,
           [
             data.email,
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+      },
+
+      getStudentProfileDetails :(id,callBack)=>{
+        pool.query(
+          `select * from studentprofile where studentID= ? `,
+          [
+            id
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+      },
+      getEducationDetails :(id,callBack)=>{
+        pool.query(
+          `select * from education where studentID= ? `,
+          [
+            id
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+      },
+      getExperienceDetails :(id,callBack)=>{
+        pool.query(
+          `select * from experience where studentID= ? `,
+          [
+            id
           ],
           (error, results) => {
             if (error) {

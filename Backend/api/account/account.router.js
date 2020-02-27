@@ -2,7 +2,8 @@ const router = require("express").Router();
 // const { checkToken } = require("../../auth/token_validation");
 const {
   createStudent,
-  login
+  login,
+  getStudentDetails
 //   login,
 //   getUserByUserId,
 //   getUsers,
@@ -11,6 +12,7 @@ const {
 } = require("./account.controller");
 // router.get("/", checkToken, getUsers);
  router.post("/createStudent", createStudent);
+ router.get("/getStudentDetails/:id", getStudentDetails);
  router.post("/login", login);
 
 // router.get("/:id", checkToken, getUserByUserId);
