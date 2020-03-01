@@ -26,8 +26,8 @@ module.exports = {
   },
   getJobs: (filter,callBack) => {
     pool.query(
-      `select companyID,location,postedDate,deadLineDate,salary,description,category,title 
-      from job
+      `select cp.name,jb.companyID,jb.jobID,jb.location,jb.postedDate,jb.deadLineDate,jb.salary,jb.description,jb.category,jb.title 
+      from job AS jb INNER JOIN companyprofile AS cp ON jb.companyID = cp.companyID
 `,
       [
         filter.location,

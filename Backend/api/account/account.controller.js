@@ -3,7 +3,8 @@ const {
     login,
     getStudentProfileDetails,
     getEducationDetails,
-    getExperienceDetails
+    getExperienceDetails,
+    updateStudentName
   } = require("./account.service");
 
   let studentObj ={
@@ -29,7 +30,8 @@ const {
         }
         return res.status(200).json({
           success: 1,
-          data: results
+          data: results,
+          message : "Sign up Successful"
         });
       });
     },
@@ -38,20 +40,24 @@ const {
       login(body, (err, results) => {
         if (err) {
           console.log(err);
-          return;
+          return res.status(500).json({
+            success: 0,
+            message : "Database error"
+          });
         }
         else{
           if(compareSync(body.password ,results[0].password)){
           res.cookie('cookie',results[0].studentID,{maxAge: 900000, httpOnly: false, path : '/'});
             return res.json({
               success: 1,
-              data: results
+              data: results,
+              message : "Signin Successful"
             });
           }
           else{
-            return res.status(400).json({
+            return res.status(200).json({
               success: 0,
-              data: "email id or password incorrect"
+              message: "email id or password incorrect"
             });
           }
         }
@@ -88,5 +94,21 @@ const {
         success: 1,
         data: studentObj
       });
-    }
-}
+    },
+
+    updateStudentName: (req, res) => {
+      const body = req.body;
+      updateStudentName(body, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection errror"
+          });
+        }
+        return res.status(200).json({
+          success: 1,
+          data: results
+        });
+      });
+    }}

@@ -3,6 +3,8 @@ import {Route,Switch} from 'react-router-dom';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import StudentHome from './Student/Home/Home';
+import Postings from './Student/Jobs/Postings';
+
 import Navbar from './LandingPage/Navbar';
 import cookie from 'react-cookies';
 import { Redirect } from 'react-router';
@@ -13,9 +15,9 @@ class Main extends Component {
     render(){
         let navRoute = null;
         if (cookie.load('cookie')) {
-            console.log("cookie to he");
             navRoute = <Navbar />
-        }
+
+            }
         else{
             console.log("cookie to na");
         }
@@ -26,8 +28,9 @@ class Main extends Component {
                 {navRoute}
                 <Route exact path="/" render={() => <Redirect to="/login" />} />
                 <Route path="/login" component={Login}/>
-                <Route path="/home" component={StudentHome}/>
+                <Route path="/student/home" component={StudentHome}/>
                 <Route path="/signup" component={Signup}/>
+                <Route path="/postings" component={Postings}/>
                
             </div>
         )

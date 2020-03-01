@@ -3,7 +3,8 @@ const router = require("express").Router();
 const {
   createStudent,
   login,
-  getStudentDetails
+  getStudentDetails,
+  updateStudentName
 //   login,
 //   getUserByUserId,
 //   getUsers,
@@ -13,6 +14,8 @@ const {
 // router.get("/", checkToken, getUsers);
  router.post("/createStudent", createStudent);
  router.get("/getStudentDetails/:id", getStudentDetails);
+ router.post("/updateStudentName", updateStudentName);
+
  router.post("/login", login);
 
 // router.get("/:id", checkToken, getUserByUserId);

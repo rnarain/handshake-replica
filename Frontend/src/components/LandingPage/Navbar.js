@@ -17,7 +17,6 @@ class Navbar extends Component {
         //if Cookie is set render Logout Button
         let navLogin = null;
         if(cookie.load('cookie')){
-            console.log("Able to read cookie");
             navLogin = (
                 <ul className="nav navbar-nav navbar-right">
                         <li><Link to="/" onClick = {this.handleLogout}><span className="glyphicon glyphicon-user"></span>Logout</Link></li>
@@ -33,12 +32,12 @@ class Navbar extends Component {
             )
         }
         let redirectVar = null;
-        if(cookie.load('cookie')){
-            redirectVar = <Redirect to="/home"/>
+        if(!cookie.load('cookie')){
+            redirectVar = <Redirect to="/login"/>
         }
         return(
             <div className="container">
-                {redirectVar}
+                 {redirectVar} 
             <nav className="navbar navbar-fixed-top">
                 <div className="container-fluid">
                     <div className="navbar-header">
@@ -52,6 +51,7 @@ class Navbar extends Component {
             </form>
             </div>
                     <ul className="nav navbar-nav navbar-right">
+                    <li><Link to="/student/home">Profile</Link></li>
                         <li><Link to="/postings">Jobs</Link></li>
                         <li><Link to="/events">Events</Link></li>
                     </ul>

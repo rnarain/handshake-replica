@@ -46,7 +46,9 @@ class BasicInfo extends Component {
         }
 
         fNameChangeHandler = (e) => {
+            this.setState({
             fname: e.target.value
+            })
         }
 
         lNameChangeHandler = (e) => {
@@ -74,8 +76,8 @@ class BasicInfo extends Component {
             <div className="card-body">
                <div className=" text-center">
                 <p><img className=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image" /></p>
-                <input onChange={this.fNameChangeHandler} value={this.state.lname} type="text" className="form-control" name="lname" placeholder="Last Name" />
-                <input onChange={this.lNameChangeHandler} value={this.state.fname} type="text" className="form-control" name="fName" placeholder="First Name" />
+                <input onChange={this.lNameChangeHandler} value={this.state.lname} type="text" className="form-control" name="lname" placeholder="Last Name" />
+                <input onChange={this.fNameChangeHandler} value={this.state.fname} type="text" className="form-control" name="fName" placeholder="First Name" />
                 <p>
                     <button onClick={this.submitEdit} className="btn btn-success edit-button">Save</button>
                     <button onClick={this.cancelEdit} className="btn btn-danger edit-button">Cancel</button>
@@ -88,7 +90,7 @@ class BasicInfo extends Component {
         return(
             <div className="card-body">
               <div className="container-fluid">
-               <button type="button" className="btn btn-default btn-circle pull-right" onClick={this.editButtonChangeHandler}>< i class="glyphicon glyphicon-pencil"></i></button>
+               <button type="button" className="btn btn-default btn-circle pull-right" onClick={this.editButtonChangeHandler}>< i className="glyphicon glyphicon-pencil"></i></button>
                </div>
                <div className=" text-center">
                <p><img className=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image" /></p>

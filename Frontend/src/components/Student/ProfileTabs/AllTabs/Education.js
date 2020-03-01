@@ -74,7 +74,7 @@ class Education extends Component {
 
     cancelEdit = (e) => {
         this.setState({
-            edit: false
+            edit: false,
         })
         // this.state =[]
     }
@@ -96,7 +96,7 @@ class Education extends Component {
     render() {
         if (this.state.edit || this.state.add) {
             return (
-                <form>
+                <div>
                     <div className="form-group">
                         <label>College</label>
                         <input type="text" onChange={this.collegeChangeHandler} value={this.state.college} className="form-control" id="inputAddress" placeholder="College" />
@@ -136,7 +136,7 @@ class Education extends Component {
                     </div>
                     <button onClick={this.submitEdit} className="btn btn-success edit-button">Save</button>
                     <button onClick={this.cancelEdit} className="btn btn-danger edit-button">Cancel</button>
-                </form>
+                </div>
 
             )
         }
@@ -151,7 +151,7 @@ class Education extends Component {
                         <p> <b> GPA : </b>{this.state.gpa} / 4</p>
                     </div>
                     <div className="col-sm-1">
-                        <button type="button" className="btn btn-default btn-circle" onClick={this.editButtonChangeHandler}>< i class="glyphicon glyphicon-pencil"></i></button>
+                        <button type="button" className="btn btn-default btn-circle" onClick={this.editButtonChangeHandler}>< i className="glyphicon glyphicon-pencil"></i></button>
                     </div>
                 </div>
             )

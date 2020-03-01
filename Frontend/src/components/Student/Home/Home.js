@@ -34,7 +34,7 @@ class Home extends Component {
         }
     }
     //Call the Will Mount to set the auth Flag to false
-        componentWillMount() {
+        async componentWillMount() {
         if (cookie.load('cookie')){
             // this.setState({
             //     studentid: cookie.load('cookie')
@@ -44,7 +44,7 @@ class Home extends Component {
         }
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.get('http://localhost:3001/api/account/getStudentDetails/' + cookie.load('cookie'))
+        await axios.get('http://localhost:3001/api/account/getStudentDetails/' + cookie.load('cookie'))
             .then(response => {
                 let studentProfile =  response.data.data.studentprofile[0];
                 let education =  response.data.data.education[0];
@@ -95,7 +95,7 @@ class Home extends Component {
             )
         })
         return (
-            <div class="handshake-body">
+            <div className="handshake-body">
                 <div className=" col-sm-8 col-sm-offset-2 profile-container card-columns">
                         <div className="card col-sm-4">
                             <div className="box-part">

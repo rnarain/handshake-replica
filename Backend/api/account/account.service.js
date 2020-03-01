@@ -229,5 +229,23 @@ module.exports = {
             return callBack(null, results);
           }
         );
-      }
+      },
+
+      updateStudentName: (data, callBack) => {
+        console.log(data);
+        pool.query(
+          `UPDATE studentprofile SET fname=? ,lname=? where studentID = ?`,
+          [
+            data.fname,
+            data.lname,
+            data.id
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+      },
 }

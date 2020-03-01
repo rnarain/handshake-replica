@@ -3,6 +3,8 @@ import '../../App.css';
 import axios from 'axios';
 import cookie from 'react-cookies';
 import { Redirect } from 'react-router';
+// import { connect } from 'react-redux';
+
 
 //Define a Login Component
 class Login extends Component {
@@ -75,7 +77,6 @@ class Login extends Component {
             <div>
                 {redirectVar}
                 <div className="login-form">
-
                     <div className="sidebar col-sm-4">
                         <a className="logo" href="https://www.joinhandshake.com"><img alt="Handshake logo image" src="https://handshake-production-cdn.joinhandshake.com/assets/logo-icon-2d294d9834da88f5fdf0ab747dd89fb15f8ab7c12a3e193294bab3d522d71a2c.svg" height="42" /></a>
                         <div className="content">
