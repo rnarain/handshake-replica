@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+// import SweetAlert from 'sweetalert-react';
+// import 'sweetalert/dist/sweetalert.css';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 // let selectedfilters= [0,3];
 const jobTypes = {
@@ -8,6 +12,10 @@ const jobTypes = {
     2: "Internship",
     3: "On-Campus"
 }
+const MySwal = withReactContent(Swal)
+
+ 
+
 
 //create the Navbar Component
 class JobList extends Component {
@@ -16,12 +24,12 @@ class JobList extends Component {
         this.state = {
             jobList: [],
             selectedJob: {},
-            selectedPageNumber: 0
+            selectedPageNumber: 0,
             
         }
         this.showJobDetail = this.showJobDetail.bind(this);
         this.paginationHandler = this.paginationHandler.bind(this);
-
+        this.applyModal =this.applyModal.bind(this);
     }
     // filterJobs = ()=>{
     //     console.log("in filter jobs");
@@ -33,19 +41,24 @@ class JobList extends Component {
 
 
     componentDidUpdate() {
+        if (this.props.jobList.length > 0) {
+
         if (Object.keys(this.state.selectedJob).length === 0) {
-            if (this.props.jobList.length > 0) {
                 this.setState({
                     selectedJob: this.props.jobList[0]
                 })
-            }
         }
         // else if(this.state.selectedJob.jobID !== this.props.jobList.jobID){
-        //     if(this.props.jobList.length > 0){
         //         this.setState({
         //             selectedJob :this.props.jobList[0]
         //         })
         // }
+        }
+        else if(Object.keys(this.state.selectedJob).length !== 0){
+            this.setState({
+                selectedJob: []
+            })
+        }
     }
     showJobDetail = (e) => {
         this.setState({
@@ -59,6 +72,41 @@ class JobList extends Component {
         })
     }
 
+    applyModal = ()=>{
+        return (
+            MySwal.fire({
+                title: 'Upload Resume',
+                input : 'file',
+                confirmButtonText: 'Apply',
+                showCancelButton: true,
+                preConfirm: (login) => {
+                    console.log(login);
+                    // return fetch(`//api.github.com/users/${login}`)
+                    //   .then(response => {
+                    //     if (!response.ok) {
+                    //       throw new Error(response.statusText)
+                    //     }
+                    //     return response.json()
+                    //   })
+                    //   .catch(error => {
+                    //     Swal.showValidationMessage(
+                    //       `Request failed: ${error}`
+                    //     )
+                    //   })
+                  },
+            }).then((result) => {
+                if(result.value){
+                    MySwal.fire({
+                        icon: 'success',
+                        title: 'Applied',
+                        showConfirmButton: false,
+                        timer: 3000
+                      })
+                }
+               
+              })
+        )
+    }
     
 
     //handle logout to destroy the cookie
@@ -112,6 +160,7 @@ class JobList extends Component {
 
         //if Cookie is set render Logout Button
         return (
+            
             <div className="row jobList">
                 <div className="col-sm-4 jobListLeft">
                     {jobs}
@@ -123,6 +172,15 @@ class JobList extends Component {
                     </nav>
                 </div>
                 <div className="col-sm-8 jobListRight">
+                {/* <div>
+                <button onClick={() => this.setState({ show: true })}>Alert</button>
+                <SweetAlert
+                    show={this.state.show}
+                    title="Demo"
+                    text="SweetAlert in React"
+                    onConfirm={() => this.setState({ show: false })}
+                />
+                </div> */}
                     <h3>{this.state.selectedJob.title}</h3>
                     <p>{this.state.selectedJob.name}</p>
                     <span className="greyText marginright10">
@@ -135,17 +193,16 @@ class JobList extends Component {
                             <div className="col-sm-10">
                                 Applications close on {this.state.selectedJob.deadLineDate} </div>
                             <div className="col-sm-2">
-                                <button type="button" onClick={this.open} className="btn btn-success" data-toggle="modal" data-target="#exampleModalLong">Apply</button>
+                                <button type="button" onClick={this.applyModal} className="btn btn-success" data-toggle="modal" data-target="#exampleModalLong">Apply</button>
                             </div>
 
                         </div>
                         <p>{this.state.selectedJob.description}</p>
                     </div>
                 </div>
+           
+           
             </div>
-
-
-
         )
     }
 }
