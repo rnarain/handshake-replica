@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BasicInfo from '../ProfileTabs/AllTabs/BasicInfo';
+import AccountInfo from '../ProfileTabs/AllTabs/AccountInfo';
 import CareerObjective from '../ProfileTabs/AllTabs/CareerObjective';
 import Education from '../ProfileTabs/AllTabs/Education';
 import Experience from '../ProfileTabs/AllTabs/Experience';
@@ -20,8 +21,8 @@ class Home extends Component {
             basicinfo: "",
             objective: "",
             education: [],
+            accountInfo:"",
             experience :"",
-            studentid:"",
             studentProfileData : {
                 fname:"",
                 lname:"",
@@ -30,27 +31,23 @@ class Home extends Component {
                 major:"",
                 gpa:"",
                 profilePicURL:""
-            }
+            },
+            editable:false
         }
     }
     //Call the Will Mount to set the auth Flag to false
         async componentWillMount() {
-        if (cookie.load('cookie')){
-            // this.setState({
-            //     studentid: cookie.load('cookie')
-            // })
-            // console.log(cookie.load('cookie'));
-            // console.log(this.state.studentid);
-        }
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        await axios.get('http://localhost:3001/api/account/getStudentDetails/' + cookie.load('cookie'))
+        await axios.get('http://localhost:3001/api/account/getStudentDetails/' + this.props.match.params.id)
             .then(response => {
+                console.log(response);
                 let studentProfile =  response.data.data.studentprofile[0];
                 let education =  response.data.data.education[0];
 
                 this.setState({
                     education : response.data.data.education,
+                    accountInfo : response.data.data.accountInfo[0],
                     studentProfileData:{
                         fname:studentProfile.fname,
                         lname:studentProfile.lname,
@@ -63,7 +60,13 @@ class Home extends Component {
                     } 
                 })
                 //console.log(this.state.studentProfileData)
+             
+                if(this.props.match.params.id == localStorage.getItem('id')){
+                    this.setState({
+                        editable:true
+                    })
                 }
+            }
             ).catch( ex =>{
                 this.setState({
                     authFlag: false
@@ -88,7 +91,7 @@ class Home extends Component {
     }
    
     render() {
-        console.log(this.state.education);
+        console.log();
         let educationTabs = this.state.education.map(e => {
             return(
                 <Education key={e.educationID} education= {e} />
@@ -99,10 +102,10 @@ class Home extends Component {
                 <div className=" col-sm-8 col-sm-offset-2 profile-container card-columns">
                         <div className="card col-sm-4">
                             <div className="box-part">
-                                <BasicInfo entireData={this.state.studentProfileData}/>
+                                <BasicInfo entireData={this.state.studentProfileData} editable={this.state.editable}/>
                             </div>
                             <div className="box-part">
-                                {/* <BasicInfo /> */}
+                                <AccountInfo accountInfo= {this.state.accountInfo} />
                             </div>
                             </div>
                         <div className="card col-sm-8">
@@ -112,6 +115,14 @@ class Home extends Component {
                             <div className="box-part">
                             <div className="card-body">
                             <h4 className="card-title">Education</h4>
+                                {educationTabs}
+                             <button onClick={this.AddEducationHandler} className="btn btn-info form-control edit-button">Add Education</button>
+                            
+                            </div>
+                            </div>
+                            <div className="box-part">
+                            <div className="card-body">
+                            <h4 className="card-title">Experience</h4>
                                 {educationTabs}
                              <button onClick={this.AddEducationHandler} className="btn btn-info form-control edit-button">Add Education</button>
                             

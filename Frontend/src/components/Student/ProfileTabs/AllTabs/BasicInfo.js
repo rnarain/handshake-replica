@@ -15,7 +15,7 @@ class BasicInfo extends Component {
             gpa:"",
             profilePicURL:"",
             flag : true,
-            edit:false
+            edit:false,
         }
 
         this.editButtonChangeHandler = this.editButtonChangeHandler.bind(this);
@@ -70,6 +70,10 @@ class BasicInfo extends Component {
         }
     
     render() {
+        let editButton=null;
+        if(this.props.editable) {
+            editButton = <button type="button" className="btn btn-default btn-circle pull-right" onClick={this.editButtonChangeHandler}>< i className="glyphicon glyphicon-pencil"></i></button>
+        }
         if(this.state.edit)
 {
         return (
@@ -90,7 +94,7 @@ class BasicInfo extends Component {
         return(
             <div className="card-body">
               <div className="container-fluid">
-               <button type="button" className="btn btn-default btn-circle pull-right" onClick={this.editButtonChangeHandler}>< i className="glyphicon glyphicon-pencil"></i></button>
+                {editButton}
                </div>
                <div className=" text-center">
                <p><img className=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image" /></p>

@@ -4,10 +4,12 @@ const {
     getStudentProfileDetails,
     getEducationDetails,
     getExperienceDetails,
+    getAccountDetails,
     updateStudentName
   } = require("./account.service");
 
   let studentObj ={
+    accountInfo :"",
     studentprofile : "",
     education : "",
     experience : "",
@@ -46,8 +48,16 @@ const {
           });
         }
         else{
+          if(results.length ==0){
+            return res.json({
+              success: 0,
+              message : "email or password incorrect"
+            });
+          }
           if(compareSync(body.password ,results[0].password)){
-          res.cookie('cookie',results[0].studentID,{maxAge: 900000, httpOnly: false, path : '/'});
+            // localStorage.setItem('id', results[0].studentID);
+            // localStorage.setItem('type', results[0].type);
+          // res.cookie('cookie',results[0].studentID,{maxAge: 900000, httpOnly: false, path : '/'});
             return res.json({
               success: 1,
               data: results,
@@ -73,6 +83,13 @@ const {
           return;
         }
         studentObj.studentprofile = results;
+        getAccountDetails(results[0].accountID,(err, Accresults) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        studentObj.accountInfo = Accresults;
+      });
       });
       // getExperienceDetails(id,(err, results) => {
       //   if (err) {
@@ -88,6 +105,8 @@ const {
         }
         studentObj.education = results;
       });
+
+      
 
 
       return res.json({

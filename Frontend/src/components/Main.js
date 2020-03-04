@@ -16,9 +16,8 @@ import { Redirect } from 'react-router';
 class Main extends Component {
     render(){
         let navRoute = null;
-        if (cookie.load('cookie')) {
+        if (localStorage.getItem('id')) {
             navRoute = <Navbar />
-
             }
         else{
             console.log("cookie to na");
@@ -30,7 +29,7 @@ class Main extends Component {
                 {navRoute}
                 <Route exact path="/" render={() => <Redirect to="/login" />} />
                 <Route path="/login" component={Login}/>
-                <Route path="/student/home" component={StudentHome}/>
+                <Route path="/student/:id" component={StudentHome}/>
                 <Route path="/signup" component={Signup}/>
                 <Route path="/postings" component={Postings}/>
                 <Route path="/applications" component={Applications}/>

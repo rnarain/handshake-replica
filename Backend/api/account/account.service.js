@@ -175,7 +175,7 @@ module.exports = {
       login: (data, callBack) => {
         console.log(data);
         pool.query(
-          `SELECT SP.studentID,AC.password FROM account As AC Join studentprofile AS SP on AC.accountID = SP.accountID where email = ?`,
+          `SELECT type FROM account where email = ? LIMIT 1`,
           [
             data.email,
           ],
@@ -183,7 +183,37 @@ module.exports = {
             if (error) {
               callBack(error);
             }
-            return callBack(null, results);
+            else{
+              if(results[0].type ==0 ){
+                pool.query(
+                  `SELECT SP.studentID as id,AC.password, AC.type FROM account As AC Join studentprofile AS SP on AC.accountID = SP.accountID where email = ?`,
+                  [
+                    data.email
+                  ],
+                  (error, result) => {
+                    if (error) {
+                      callBack(error);
+                    }
+                    return callBack(null, result);
+                  }
+                );
+              }
+              else{
+                pool.query(
+                  `SELECT CP.comapnyID as id,AC.password, AC.type FROM account As AC Join companyprofile AS SP on AC.accountID = CP.accountID where email = ?`,
+                  [
+                    data.email,
+                  ],
+                  (error, result) => {
+                    if (error) {
+                      callBack(error);
+                    }
+                  return callBack(null, result);
+                }
+                );
+              }
+            }
+            //return callBack(null, results);
           }
         );
       },
@@ -221,6 +251,20 @@ module.exports = {
           `select * from experience where studentID= ? `,
           [
             id
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+      },
+      getAccountDetails :(accountID,callBack)=>{
+        pool.query(
+          `select * from account where accountID= ? `,
+          [
+            accountID
           ],
           (error, results) => {
             if (error) {

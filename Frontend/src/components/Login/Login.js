@@ -55,7 +55,8 @@ class Login extends Component {
         //make a post request with the user data
         axios.post('http://localhost:3001/api/account/login', data)
             .then(response => {
-                console.log("Status Code : ", response.status);
+                localStorage.setItem('id', response.data.data[0].id);
+                localStorage.setItem('type', response.data.data[0].type);
                     this.setState({
                         authFlag: true
                     })
@@ -70,8 +71,9 @@ class Login extends Component {
     render() {
         //redirect based on successful login
         let redirectVar = null;
-        if (cookie.load('cookie')) {
-            redirectVar = <Redirect to="/student/home" />
+        if (localStorage.getItem('type') == 0 && this.state.authFlag) {
+            let redVar = "/student/"+ localStorage.getItem('id');
+            redirectVar = <Redirect to={redVar} />
         }
         return (
             <div>
