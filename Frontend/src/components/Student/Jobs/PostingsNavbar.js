@@ -21,7 +21,7 @@ class PostingsNavbar extends Component {
                     
                     <ul className="nav navbar-nav navbar-right">
                         <li><Link to="/postings">Job Search</Link></li>
-                        <li><Link to="/events">Applications</Link></li>
+                        <li><Link to="/applications">Applications</Link></li>
                     </ul>
                 </div>
             </nav>

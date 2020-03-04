@@ -4,14 +4,16 @@ import { Link } from 'react-router-dom';
 // import 'sweetalert/dist/sweetalert.css';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import {jobTypes} from '../../../enum.js'
+
 
 // let selectedfilters= [0,3];
-const jobTypes = {
-    0: "Full-Time",
-    1: "Part-Time",
-    2: "Internship",
-    3: "On-Campus"
-}
+// const jobTypes = {
+//     0: "Full-Time",
+//     1: "Part-Time",
+//     2: "Internship",
+//     3: "On-Campus"
+// }
 const MySwal = withReactContent(Swal)
 
  
