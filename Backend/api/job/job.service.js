@@ -3,12 +3,11 @@ const pool = require("../../config/database");
 module.exports = {
   createJob: (data, callBack) => {
     pool.query(
-      `insert into job(companyID,location,postedDate,deadLineDate,salary,description,category,title	) 
-                values(?,?,?,?,?,?,?,?)`,
+      `insert into job(companyID,location,deadLineDate,salary,description,category,title	) 
+                values(?,?,?,?,?,?,?)`,
       [
         data.companyID,
         data.location,
-        data.postedDate,
         data.deadLineDate,
         data.salary,
         data.description,
@@ -44,7 +43,7 @@ module.exports = {
 
    getJobsByCompanyID: (id,callBack) => {
     pool.query(
-      `select companyID,location,postedDate,deadLineDate,salary,description,category,title 
+      `select companyID,jobID,location,postedDate,deadLineDate,salary,description,category,title 
       from job where companyID = ?
 `,
       [
@@ -70,5 +69,38 @@ module.exports = {
         return callBack(null, results);
       }
     );
-  }
+  },
+
+  getApplicantListByJobID: (id,callBack) => {
+    pool.query(
+      `select JA.jobApplicationID,JA.studentID,JA.status,JA.applicationDate,SP.fname,SP.lname from jobapplication JA INNER JOIN studentprofile SP ON SP.studentID = JA.studentID where jobID =? 
+`,
+      [
+       id
+      ],
+      (error, results, fields) => {
+        if (error) {
+          callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
+
+  changeApplicationStatus: (data, callBack) => {
+    pool.query(
+      `update jobapplication SET status=? where jobApplicationID= ?`,
+      [
+        data.status,
+        data.jobApplicationID
+      ],
+      (error, results, fields) => {
+        console.log(results);
+        if (error) {
+          callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
 }

@@ -5,6 +5,13 @@ import Signup from './Signup/Signup';
 import StudentHome from './Student/Home/Home';
 import Postings from './Student/Jobs/Postings';
 import Applications from './Student/Jobs/Applications';
+import JobPostings from './Company/JobPostings/JobPostings';
+import Listings from './Company/JobPostings/Listings';
+import ApplicantList from './Company/JobPostings/ApplicantList';
+
+
+// import Postings from './Student/Jobs/Postings';
+// import Applications from './Student/Jobs/Applications';
 
 
 import Navbar from './LandingPage/Navbar';
@@ -20,7 +27,6 @@ class Main extends Component {
             navRoute = <Navbar />
             }
         else{
-            console.log("cookie to na");
         }
 
         return(
@@ -31,9 +37,13 @@ class Main extends Component {
                 <Route path="/login" component={Login}/>
                 <Route path="/student/:id" component={StudentHome}/>
                 <Route path="/signup" component={Signup}/>
-                <Route path="/postings" component={Postings}/>
-                <Route path="/applications" component={Applications}/>
+                <Route path="/student/postings" component={Postings}/>
+                <Route path="/student/applications" component={Applications}/>
+                <Route path="/company/postings" component={JobPostings}/>
+                <Route path="/company/listings" component={Listings}/>
+                <Route path="/company/applicantlist/:id" component={ApplicantList}/>
 
+                
                
             </div>
         )

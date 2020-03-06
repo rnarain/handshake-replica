@@ -20,8 +20,8 @@ class PostingsNavbar extends Component {
                     </div>
                     
                     <ul className="nav navbar-nav navbar-right">
-                        <li><Link to="/student/postings">Job Search</Link></li>
-                        <li><Link to="/student/applications">Applications</Link></li>
+                        <li><Link to="/company/postings">Post a Job</Link></li>
+                        <li><Link to="/company/listings">Job Listings</Link></li>
                     </ul>
                 </div>
             </nav>

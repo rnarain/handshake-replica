@@ -167,6 +167,11 @@ margin:10px 0px;
   overflow-y: scroll
 }
 
+.jobListCompany{
+  height:500px;
+  overflow-y: scroll
+}
+
 .job{
   border-bottom: 1px solid #e0e0e0;
   padding: 10px 10px;

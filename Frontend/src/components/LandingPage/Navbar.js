@@ -14,7 +14,32 @@ class Navbar extends Component {
         localStorage.removeItem('id');
         localStorage.removeItem('type');
     }
+
+
     render(){
+        let navLinks = null;
+        if(localStorage.getItem('type')==0){
+            navLinks= (
+                <ul className="nav navbar-nav navbar-right">
+                <li><Link to="/student/home">Profile</Link></li>
+                        <li><Link to="/student/postings">Jobs</Link></li>
+                        <li><Link to="/student/events">Events</Link></li>
+                </ul>
+            );
+        }
+        else {
+            navLinks =(
+            <ul className="nav navbar-nav navbar-right">
+            <li><Link to="/company/postings">Job Postings</Link></li>
+                    <li><Link to="/company/profile">Profile</Link></li>
+                    <li><Link to="/company/students">Students</Link></li>
+                    <li><Link to="/company/events">Events</Link></li>
+
+            </ul>
+            );
+        }
+
+
         //if Cookie is set render Logout Button
         let navLogin = null;
         if(localStorage.getItem('id')){
@@ -51,12 +76,7 @@ class Navbar extends Component {
                 <button className="btn btn-outline-white btn-md my-2 my-sm-0 ml-3 searchbutton" type="submit">Search</button>
             </form>
             </div>
-                    <ul className="nav navbar-nav navbar-right">
-                    <li><Link to="/student/home">Profile</Link></li>
-                        <li><Link to="/postings">Jobs</Link></li>
-                        <li><Link to="/events">Events</Link></li>
-                    </ul>
-                    
+                    {navLinks}                    
                     {navLogin}
                 </div>
             </nav>

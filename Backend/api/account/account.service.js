@@ -200,7 +200,7 @@ module.exports = {
               }
               else{
                 pool.query(
-                  `SELECT CP.comapnyID as id,AC.password, AC.type FROM account As AC Join companyprofile AS SP on AC.accountID = CP.accountID where email = ?`,
+                  `SELECT CP.companyID as id,AC.password, AC.type FROM account As AC Join companyprofile AS CP on AC.accountID = CP.accountID where email = ?`,
                   [
                     data.email,
                   ],

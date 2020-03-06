@@ -4,7 +4,9 @@ const {
   createJob,
   getJobs,
   getJobsByCompanyID,
-  deleteJob
+  deleteJob,
+  getApplicantListByJobID,
+  changeApplicationStatus
 //   login,
 //   getUserByUserId,
 //   getUsers,
@@ -15,7 +17,10 @@ const {
  router.post("/createJob", createJob);
  router.get("/getJobs",getJobs);
  router.get("/getJobsByCompanyID/:id",getJobsByCompanyID);
+ router.get("/getApplicantListByJobID/:id",getApplicantListByJobID);
  router.delete("/deleteJob/:id",deleteJob);
+ router.post("/changeApplicationStatus",changeApplicationStatus);
+
 
 
 // router.get("/:id", checkToken, getUserByUserId);
