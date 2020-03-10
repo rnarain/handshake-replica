@@ -2,11 +2,12 @@ const router = require("express").Router();
 // const { checkToken } = require("../../auth/token_validation");
 const {
   createJob,
-  getJobs,
+  getJobsByStudentID,
   getJobsByCompanyID,
   deleteJob,
   getApplicantListByJobID,
-  changeApplicationStatus
+  changeApplicationStatus,
+  applyForJob
 //   login,
 //   getUserByUserId,
 //   getUsers,
@@ -15,8 +16,9 @@ const {
 } = require("./job.controller");
 // router.get("/", checkToken, getUsers);s
  router.post("/createJob", createJob);
- router.get("/getJobs",getJobs);
+ router.get("/getJobsByStudentID/:id",getJobsByStudentID);
  router.get("/getJobsByCompanyID/:id",getJobsByCompanyID);
+ router.post("/applyForJob",applyForJob);
  router.get("/getApplicantListByJobID/:id",getApplicantListByJobID);
  router.delete("/deleteJob/:id",deleteJob);
  router.post("/changeApplicationStatus",changeApplicationStatus);

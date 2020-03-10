@@ -23,14 +23,16 @@ module.exports = {
       }
     );
   },
-  getJobs: (filter,callBack) => {
+  getJobsByStudentID: (id,callBack) => {
     pool.query(
       `select cp.name,jb.companyID,jb.jobID,jb.location,jb.postedDate,jb.deadLineDate,jb.salary,jb.description,jb.category,jb.title 
-      from job AS jb INNER JOIN companyprofile AS cp ON jb.companyID = cp.companyID
+      from job AS jb 
+      INNER JOIN companyprofile AS cp 
+      ON jb.companyID = cp.companyID 
+      INNER JOIN jobapplication AS ja ON jb.jobID <> ja.jobID or ja.studentID <> ?
 `,
       [
-        filter.location,
-        filter.category
+        id
       ],
       (error, results, fields) => {
         if (error) {
@@ -93,6 +95,25 @@ module.exports = {
       [
         data.status,
         data.jobApplicationID
+      ],
+      (error, results, fields) => {
+        console.log(results);
+        if (error) {
+          callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
+  applyForJob: (data, callBack) => {
+    pool.query(
+      `insert into jobapplication(jobID,studentID,status,resumeURL) 
+                values(?,?,?,?)`,
+      [
+        data.jobID,
+        data.studentID,
+        0,
+        data.resumeURL,
       ],
       (error, results, fields) => {
         console.log(results);

@@ -73,7 +73,7 @@ class Login extends Component {
         //redirect based on successful login
         let redirectVar = null;
         if (localStorage.getItem('type') == 0 && this.state.authFlag) {
-            let redVar = "/student/"+ localStorage.getItem('id');
+            let redVar = "/student/profile/"+ localStorage.getItem('id');
             redirectVar = <Redirect to={redVar} />
         }
         else if(this.state.authFlag){
