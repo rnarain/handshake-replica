@@ -39,10 +39,12 @@ app.use(function(req, res, next) {
   app.use(express.json());
 var accountRouter = require('./api/account/account.router');
 var jobRouter = require('./api/job/job.router');
+var eventRouter = require('./api/event/event.router');
 var jobApplicationRouter = require('./api/jobApplication/jobApplication.router');
 
 
 app.use('/api/account',accountRouter);
+app.use('/api/event',eventRouter);
 app.use('/api/job',jobRouter);
 app.use('/api/jobApplication',jobApplicationRouter);
 

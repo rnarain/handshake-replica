@@ -292,4 +292,19 @@ module.exports = {
           }
         );
       },
+      getAllStudents :(callBack)=>{
+        pool.query(
+          `SELECT * FROM studentprofile as SP
+          LEFT Join education as ed ON SP.studentID = ed.studentID
+          LEFT Join experience as ex ON SP.studentID = ex.studentID`,
+          [
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+      },
 }

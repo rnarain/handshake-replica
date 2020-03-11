@@ -4,7 +4,8 @@ const {
   createStudent,
   login,
   getStudentDetails,
-  updateStudentName
+  updateStudentName,
+  getAllStudents,
 //   login,
 //   getUserByUserId,
 //   getUsers,
@@ -14,6 +15,8 @@ const {
 // router.get("/", checkToken, getUsers);
  router.post("/createStudent", createStudent);
  router.get("/getStudentDetails/:id", getStudentDetails);
+ router.get("/getAllStudents", getAllStudents);
+
  router.post("/updateStudentName", updateStudentName);
 
  router.post("/login", login);

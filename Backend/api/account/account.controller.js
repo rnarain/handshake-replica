@@ -5,7 +5,8 @@ const {
     getEducationDetails,
     getExperienceDetails,
     getAccountDetails,
-    updateStudentName
+    updateStudentName,
+    getAllStudents
   } = require("./account.service");
 
   let studentObj ={
@@ -130,4 +131,21 @@ const {
           data: results
         });
       });
-    }}
+    },
+  
+    getAllStudents: (req, res) => {
+      getAllStudents((err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection errror"
+          });
+        }
+        return res.status(200).json({
+          success: 1,
+          data: results
+        });
+      });
+    },
+}
