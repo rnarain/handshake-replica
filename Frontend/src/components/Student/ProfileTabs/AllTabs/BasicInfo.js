@@ -97,7 +97,7 @@ class BasicInfo extends Component {
                 {editButton}
                </div>
                <div className=" text-center">
-               <p><img className=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image" /></p>
+               <p><img className=" img-fluid " src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image" /></p>
                 <h4 className="card-title">{this.state.fname} {this.state.lname}</h4>
                 <h5 className="card-text">{this.state.college}</h5>
                 <h5 className="card-text">{this.state.degreeType} , {this.state.major} </h5>

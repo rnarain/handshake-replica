@@ -77,7 +77,7 @@ class Login extends Component {
             redirectVar = <Redirect to={redVar} />
         }
         else if(this.state.authFlag){
-            redirectVar = <Redirect to="/company/jobpostings" />
+            redirectVar = <Redirect to="/company/postings" />
         }
 
         return (

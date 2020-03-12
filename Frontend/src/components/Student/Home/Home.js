@@ -6,9 +6,6 @@ import Education from '../ProfileTabs/AllTabs/Education';
 import Experience from '../ProfileTabs/AllTabs/Experience';
 import Skills from '../ProfileTabs/AllTabs/Skills';
 import axios from 'axios';
-import cookie from 'react-cookies';
-
-
 
 
 

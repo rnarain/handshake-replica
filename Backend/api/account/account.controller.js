@@ -6,8 +6,13 @@ const {
     getExperienceDetails,
     getAccountDetails,
     updateStudentName,
-    getAllStudents
+    updateCompanyProfilePic,
+    updateCompanyDetails,
+    updateContactInformation,
+    getAllStudents,
+    getCompanyProfileDetails
   } = require("./account.service");
+
 
   let studentObj ={
     accountInfo :"",
@@ -17,7 +22,34 @@ const {
   }
   const { hashSync, genSaltSync, compareSync } = require("bcrypt");
   //const { sign } = require("jsonwebtoken");
-  
+  const url = require('url');
+var multer = require('multer')
+var storage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, '../Frontend/public/Uploads/Profile-Pic')
+  },
+  filename(req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+var upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    console.log(file.mimetype)
+    if (file.mimetype == "image/png" || "image/jpg" || "image/jpeg") {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      console.log(file.mimetype);
+      return cb({
+        success: 0,
+        data: "Only images allowed"
+      });
+    }
+  }
+}).single('file');
+
+
   module.exports = {
     createStudent: (req, res) => {
       const body = req.body;
@@ -146,6 +178,75 @@ const {
           success: 1,
           data: results
         });
+      });
+    },
+
+    updateCompanyProfilePic: (req, res) => {
+      upload(req, res, function (err) {
+        if (err) {
+          return res.status(500).json(err);
+        }
+        console.log(req.file.mimetype)
+        const data = {
+          profilePicURL: "/Uploads/Profile-Pic/" +req.file.originalname,
+          id:req.params.id
+        }
+        updateCompanyProfilePic(data, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection errror"
+          });
+        }
+        return res.status(200).json({
+          success: 1,
+          data: results
+        });
+      });
+    });
+    },
+
+    getCompanyProfileDetails : (req,res)=>{
+      const id = req.params.id;
+      
+      getCompanyProfileDetails(id,(err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection errror"
+          });
+        }
+        return res.status(200).json({
+          success: 1,
+          data: results
+        });
+      });
+    },
+    updateCompanyDetails: (req, res) => {
+      const body = req.body;
+      updateCompanyDetails(body, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection errror"
+          });
+        }
+        updateContactInformation (body, (err, results) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).json({
+              success: 0,
+              message: "Database connection errror"
+            });
+          }
+          return res.status(200).json({
+            success: 1,
+            data: results
+          });
+        })
       });
     },
 }

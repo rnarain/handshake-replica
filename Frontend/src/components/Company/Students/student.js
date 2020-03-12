@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 // import Experience from '../ProfileTabs/AllTabs/Experience';
 // import Skills from '../ProfileTabs/AllTabs/Skills';
 import axios from 'axios';
-import {colleges , skills} from '../../../enum'
+import {colleges ,majors, skills} from '../../../enum'
 import cookie from 'react-cookies';
 
 
@@ -20,7 +20,15 @@ class Student extends Component {
         //maintain the state required for this component
         this.state = {
             students: [],
+            filteredStudents: [],
+            collegeFilterArray:[],
+            skillsFilterArray:[],
         }
+
+        this.nameFilterChangeHandler= this.nameFilterChangeHandler.bind(this);
+        this.collegeFilterChangeHandler= this.collegeFilterChangeHandler.bind(this);
+        this.skillsFilterChangeHandler= this.skillsFilterChangeHandler.bind(this);
+
     }
     //Call the Will Mount to set the auth Flag to false
     async componentWillMount() {
@@ -30,16 +38,119 @@ class Student extends Component {
             .then(response => {
                 console.log(response);
                 this.setState({
-                    students: response.data.data
+                    students: response.data.data,
+                    filteredStudents : response.data.data
                 })
             }
             ).catch(ex => {
                 alert(ex);
             });
     }
+    nameFilterChangeHandler = (e) => {
+        let filteredstudents = this.state.students;
+        if (e.target.value) {
+            this.setState({
+                filteredStudents: filteredstudents.filter((s) => {
+                    let name= s.fname + s.lname;
+                    return (name.replace(/\s+/g, '').toLowerCase().includes(e.target.value.replace(/\s+/g, '').toLowerCase()))
+                }
+                )
+            })
+        }
+    }
+
+    collegeFilterChangeHandler = (e) => {
+        if(e.target.checked){
+            this.setState({
+                collegeFilterArray : this.state.collegeFilterArray.concat(parseInt(e.target.value))
+           } , ()=>{
+               return this.updateStudentsForCollege()
+           })
+        }
+        else{
+            var array = [...this.state.collegeFilterArray]; // make a separate copy of the array
+            var index = array.indexOf(parseInt(e.target.value))
+            if (index !== -1) {
+                array.splice(index, 1);
+                this.setState({
+                    collegeFilterArray : array
+                }, ()=>{
+                    return this.updateStudentsForCollege()
+                })
+            }
+        }
+    }
+
+    updateStudentsForCollege=()=>{
+        console.log(this.state.collegeFilterArray)
+        if(this.state.collegeFilterArray.length === 0){
+            this.setState({
+                filteredStudents: this.state.students
+        })
+        }
+        else{
+            let filteredstudents = this.state.students;
+            this.setState({
+                filteredStudents: filteredstudents.filter((s) => {
+                    return (this.state.collegeFilterArray.includes(s.college))
+                }
+                )
+            })
+        }
+        
+    }
+
+    skillsFilterChangeHandler = (e) => {
+        if(e.target.checked){
+            this.setState({
+                skillsFilterArray : this.state.skillsFilterArray.concat(e.target.value)
+           } , ()=>{
+               return this.updateStudentsForSkills()
+           })
+        }
+        else{
+            var array = [...this.state.skillsFilterArray]; // make a separate copy of the array
+            var index = array.indexOf(e.target.value)
+            if (index !== -1) {
+                array.splice(index, 1);
+                this.setState({
+                    skillsFilterArray : array
+                }, ()=>{
+                    return this.updateStudentsForSkills()
+                })
+            }
+        }
+    }
+
+    updateStudentsForSkills=()=>{
+        console.log(this.state.skillsFilterArray)
+        if(this.state.skillsFilterArray.length === 0){
+            this.setState({
+                filteredStudents: this.state.students
+        })
+    }
+        else{
+            let filteredstudents = this.state.students;
+            this.setState({
+                filteredStudents: filteredstudents.filter((s) => {
+                    return (this.state.skillsFilterArray.some(item => s.skills.split(",").includes(item)))
+                }
+                )
+            })
+        }
+        
+    }
 
     render() {
-        let students = this.state.students.map(student => {
+        let students = this.state.filteredStudents.map(student => {
+            let worksAt = null;
+            if(student.title !== null){
+                worksAt =<p><i className="glyphicon glyphicon-briefcase"></i>{student.title} at {student.company}</p>
+              }
+              else{
+                worksAt =<p><i className="glyphicon glyphicon-briefcase"></i> No work experience listed</p>
+
+              }
             return (
                 <div className="box-part">
                     <div className="card-body container-fluid">
@@ -49,16 +160,16 @@ class Student extends Component {
                         <div className="col-sm-10">
                             <div className="row">
                             <a href=""><h4 className="card-title">{student.fname} {student.lname}</h4></a>
-                            <h5 className="card-text">{student.college}</h5>
+                            <h5 className="card-text">{colleges[student.college]}</h5>
                             </div>
                             <div className="row">
                             <div className="col-sm-6 nopadding">
                             <p className="card-text">{student.degreeType} ,Graduates {student.yearOfPassing} </p>
-            <p ><i className="glyphicon glyphicon-briefcase"></i>{student.title} at {student.company}</p>
+                            {worksAt}
                         </div>
 
                         <div className="col-sm-6 nopadding">
-                            <p >{student.major} </p>
+                            <p >{majors[student.major]} </p>
                             <p > GPA : {student.gpa} / 4 </p>
                         </div>
                         </div>
@@ -71,9 +182,19 @@ class Student extends Component {
 
         let collegesCheckboxes = Object.keys(colleges).map((key)=> {
             return(
+                <div className="form-check" key={key} >
+    <input type="checkbox" className="form-check-input"  value={key} onChange={this.collegeFilterChangeHandler}/>
+    <span className="form-check-label"> {colleges[key]}</span>
+  </div>
+            )
+        }) 
+
+        let skillsButtons = Object.keys(skills).map((key)=> {
+            return(
+
                 <div className="form-check" key={key}>
-    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-    <span className="form-check-label">{colleges[key]}</span>
+    <input type="checkbox" className="form-check-input" key={key} value={key} onChange={this.skillsFilterChangeHandler}/>
+    <span className="form-check-label"> {skills[key]}</span>
   </div>
             )
         }) 
@@ -103,7 +224,8 @@ class Student extends Component {
 
                                         <div id="collapseOne" className="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                             <div className="card-body">
-                                                enter name
+                                            <input id="nameFilter" onChange={this.nameFilterChangeHandler} type="text" className="form-control" name="nameFilter" placeholder="Filter by name" />
+
       </div>
                                         </div>
                                     </div>
@@ -135,7 +257,7 @@ class Student extends Component {
                                         </div>
                                         <div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                             <div className="card-body">
-                                                Enter SkillSet
+                                                {skillsButtons}
       </div>
                                         </div>
                                     </div>

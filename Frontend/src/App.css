@@ -364,3 +364,16 @@ border-bottom: gray 2px;}
 .nopadding{
   padding: 0px 0px;
 }
+
+.cp-profile p{
+  margin-bottom:20px
+}
+
+.cp-profile label{
+  margin-top:20px
+}
+
+.profile-pic{
+  height: 150px;
+  width: 150px;
+}

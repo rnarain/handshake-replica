@@ -28,10 +28,11 @@ class Navbar extends Component {
             );
         }
         else {
+            let profileLink = "/company/profile/" + localStorage.getItem('id');
             navLinks =(
             <ul className="nav navbar-nav navbar-right">
             <li><Link to="/company/postings">Job Postings</Link></li>
-                    <li><Link to="/company/profile">Profile</Link></li>
+                    <li><Link to={profileLink}>Profile</Link></li>
                     <li><Link to="/company/students">Students</Link></li>
                     <li><Link to="/company/events">Events</Link></li>
 
@@ -50,7 +51,6 @@ class Navbar extends Component {
             );
         }else{
             //Else display login button
-            console.log("Not Able to read cookie");
             navLogin = (
                 <ul className="nav navbar-nav navbar-right">
                         <li><Link to="/login"><span className="glyphicon glyphicon-log-in"></span> Login</Link></li>

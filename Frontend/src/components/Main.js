@@ -9,6 +9,8 @@ import Applications from './Student/Jobs/Applications';
 import JobPostings from './Company/JobPostings/JobPostings';
 import Listings from './Company/JobPostings/Listings';
 import EventListings from './Company/Events/EventListings';
+import CompanyProfile from './Company/Profile/CompanyProfile';
+
 import ApplicantList from './Company/JobPostings/ApplicantList';
 import EventParticipantList from './Company/Events/EventParticipantList';
 import Student from './Company/Students/student';
@@ -42,6 +44,7 @@ class Main extends Component {
                 <Route exact path="/" render={() => <Redirect to="/login" />} />
                 <Route path="/login" component={Login}/>
                 <Route path="/student/profile/:id" component={StudentHome}/>
+                <Route path="/company/profile/:id" component={CompanyProfile}/>
                 <Route path="/signup" component={Signup}/>
                 <Route path="/student/postings" component={Postings}/>
                 <Route path="/student/applications" component={Applications}/>

@@ -307,4 +307,71 @@ module.exports = {
           }
         );
       },
+      getCompanyProfileDetails :(id,callBack)=>{
+        pool.query(
+          `select * from companyprofile as CP INNER JOIN account as AC on CP.accountID = AC.accountID where CP.companyID= ? `,
+          [
+            id
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+      },
+      updateCompanyProfilePic :(data, callBack) => {
+        console.log(data);
+        pool.query(
+          `UPDATE companyprofile SET profilePicURL=? where companyID = ?`,
+          [
+            data.profilePicURL,
+            data.id
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, data.profilePicURL);
+          }
+        );
+      },
+
+      updateCompanyDetails :(data, callBack) => {
+        console.log(data);
+        pool.query(
+          `UPDATE companyprofile SET name=? , description = ? , city= ? where companyID = ?`,
+          [
+            data.name,
+            data.description,
+            data.city,
+            data.companyID
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+      },
+
+      updateContactInformation :(data, callBack) => {
+        console.log(data);
+        pool.query(
+          `UPDATE account SET email=? , phone = ?  where accountID = ?`,
+          [
+            data.email,
+            data.phone,
+            data.accountID
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+      },
 }
