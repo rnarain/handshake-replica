@@ -8,8 +8,14 @@ const {
   getAllStudents,
   getCompanyProfileDetails,
   updateCompanyProfilePic,
+  updateStudentProfilePic,
   updateCompanyDetails,
-  updateContactInformation
+  updateContactInformation,
+  updateStudentObjective,
+  addUpdateStudentEducation,
+  addUpdateStudentExperience,
+  updateStudentSkills
+
 //   login,
 //   getUserByUserId,
 //   getUsers,
@@ -23,8 +29,15 @@ const {
  router.get("/getAllStudents", getAllStudents);
 
  router.post("/updateStudentName", updateStudentName);
+ router.post("/updateStudentSkills", updateStudentSkills);
+ router.post("/updateContactInformation", updateContactInformation);
+ router.post("/updateStudentObjective", updateStudentObjective);
+ router.post("/addUpdateStudentEducation", addUpdateStudentEducation);
+ router.post("/addUpdateStudentExperience", addUpdateStudentExperience);
  router.post("/updateCompanyDetails", updateCompanyDetails);
  router.post("/updateCompanyProfilePic/:id", updateCompanyProfilePic);
+ router.post("/updateStudentProfilePic/:id", updateStudentProfilePic);
+ 
 
 
  router.post("/login", login);

@@ -16,10 +16,11 @@ class Home extends Component {
         //maintain the state required for this component
         this.state = {
             basicinfo: "",
-            objective: "",
+            skills:"",
+            careerObjective: "",
             education: [],
-            accountInfo:"",
-            experience :"",
+            accountInfo:{},
+            experience :[],
             studentProfileData : {
                 fname:"",
                 lname:"",
@@ -44,6 +45,7 @@ class Home extends Component {
 
                 this.setState({
                     education : response.data.data.education,
+                    experience : response.data.data.experience,
                     accountInfo : response.data.data.accountInfo[0],
                     studentProfileData:{
                         fname:studentProfile.fname,
@@ -54,7 +56,9 @@ class Home extends Component {
                         major:education.major,
                         gpa:education.gpa,
                         profilePicURL:studentProfile.profilePicURL
-                    } 
+                    },
+                    careerObjective: studentProfile.careerObjective,
+                    skills: studentProfile.skills, 
                 })
                 //console.log(this.state.studentProfileData)
              
@@ -80,20 +84,48 @@ class Home extends Component {
                 major: "",
                 yearOfStarting: null,
                 yearOfPassing: null,
-                CGPA: "",
+                gpa: "",
                 degreeType: "",
+                add:true
+            })
+        })
+    }
+
+    AddExperienceHandler = (e) => {
+        this.setState({
+            experience : this.state.experience.concat({
+                experienceID:"",
+                company:"",
+                location:"",
+                startDate:"",
+                endDate: "",
+                title:"",
+                description:"",
                 add:true
             })
         })
     }
    
     render() {
-        console.log();
         let educationTabs = this.state.education.map(e => {
             return(
-                <Education key={e.educationID} education= {e} />
+                <Education key={e.educationID} education= {e} editable={this.state.editable} />
             )
         })
+        let experienceTabs = this.state.experience.map(e => {
+            return(
+                <Experience key={e.experienceID} Experience= {e} editable={this.state.editable}/>
+            )
+        })
+
+        let addEducationButton = null;
+        if(this.state.editable){
+            addEducationButton= <button onClick={this.AddEducationHandler} className="btn btn-info form-control edit-button">Add Education</button>
+        }
+        let addExperienceButton = null;
+        if(this.state.editable){
+            addExperienceButton= <button onClick={this.AddExperienceHandler} className="btn btn-info form-control edit-button">Add Experience</button>
+        }
         return (
             <div className="handshake-body">
                 <div className=" col-sm-8 col-sm-offset-2 profile-container card-columns">
@@ -102,53 +134,31 @@ class Home extends Component {
                                 <BasicInfo entireData={this.state.studentProfileData} editable={this.state.editable}/>
                             </div>
                             <div className="box-part">
-                                <AccountInfo accountInfo= {this.state.accountInfo} />
+                                <AccountInfo accountInfo= {this.state.accountInfo} editable={this.state.editable}/>
+                            </div>
+                            <div className="box-part">
+                                <Skills skills= {this.state.skills} editable={this.state.editable} />
                             </div>
                             </div>
                         <div className="card col-sm-8">
                             <div className="box-part">
-                                <CareerObjective />
+                                <CareerObjective careerObjective ={this.state.careerObjective} editable={this.state.editable}/>
                             </div>
                             <div className="box-part">
                             <div className="card-body">
                             <h4 className="card-title">Education</h4>
                                 {educationTabs}
-                             <button onClick={this.AddEducationHandler} className="btn btn-info form-control edit-button">Add Education</button>
-                            
+                                {addEducationButton}
                             </div>
                             </div>
                             <div className="box-part">
                             <div className="card-body">
                             <h4 className="card-title">Experience</h4>
-                                {educationTabs}
-                             <button onClick={this.AddEducationHandler} className="btn btn-info form-control edit-button">Add Education</button>
-                            
+                                {experienceTabs}
+                            {addExperienceButton}
                             </div>
                             </div>
                         </div>
-                
-                        {/* <div className="col-sm-4 card">
-                            <div className="box-part text-center">
-                                <BasicInfo />
-                            </div>
-                        </div>
-                        <div className="col-sm-8 card">
-                            <div className="box-part text-center">
-                                <CareerObjective />
-                            </div>
-                        </div>
-                
-                        <div className="col-sm-4 card">
-                            <div className="box-part text-center">
-                                <BasicInfo />
-                            </div>
-                        </div>
-                        <div className="col-sm-8 card">
-                            <div className="box-part text-center">
-                                <CareerObjective />
-                            </div>
-                        </div>
-                 */}
                 </div>
             </div>
         )

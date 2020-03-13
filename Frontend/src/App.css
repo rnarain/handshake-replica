@@ -351,14 +351,8 @@ border-bottom: gray 2px;}
 }
 
 .profile-img{
-  display: block;
     width: 70px;
     height: 70px;
-    background-size: contain;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-color: #fff;
-
 }
 
 .nopadding{
@@ -376,4 +370,8 @@ border-bottom: gray 2px;}
 .profile-pic{
   height: 150px;
   width: 150px;
+}
+
+.logo{
+  margin-top:10px
 }

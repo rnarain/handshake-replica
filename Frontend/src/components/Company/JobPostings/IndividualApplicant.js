@@ -50,18 +50,21 @@ class IndividualApplicant extends Component {
             status: this.props.individualApplicant.status,
             applicationDate: this.props.individualApplicant.applicationDate,
             fname: this.props.individualApplicant.fname,
-            lname:this.props.individualApplicant.lname
+            lname:this.props.individualApplicant.lname,
+            resumeURL:this.props.individualApplicant.resumeURL,
+
         })
     }
 
     render() {
-       let profileLink="/student/" + this.state.studentID
+       let profileLink="/student/profile/" + this.state.studentID
         return (
             <tr>
             {/* <th scope="row"></th> */}
             <td>{this.state.fname} {this.state.lname}</td>
             <td>{this.state.applicationDate}</td>
             <td><Link to={profileLink} className="btn btn-primary">View</Link></td>
+            <td><a href={this.state.resumeURL} className="btn btn-primary" target="_blank">Resume</a></td>
             <td><select className="form-control" value={this.state.status} onChange={this.changeStatus}>
                     <option value="0">{applicationStatus[0]}</option>
                     <option value="1">{applicationStatus[1]}</option>

@@ -14,6 +14,12 @@ import CompanyProfile from './Company/Profile/CompanyProfile';
 import ApplicantList from './Company/JobPostings/ApplicantList';
 import EventParticipantList from './Company/Events/EventParticipantList';
 import Student from './Company/Students/student';
+import Students from './Student/Students/Students';
+import Events from './Student/Events/Events';
+import EventRegistrations from './Student/Events/EventRegistrations';
+
+
+
 
 
 
@@ -55,6 +61,12 @@ class Main extends Component {
                 <Route path="/company/event-participant-list/:id" component={EventParticipantList}/>
                 <Route path="/company/applicantlist/:id" component={ApplicantList}/>
                 <Route path="/company/students" component={Student}/>
+                <Route path="/student/students" component={Students}/>
+                <Route path="/student/events" component={Events}/>
+                <Route path="/student/event-registrations" component={EventRegistrations}/>
+
+
+
 
                 
                

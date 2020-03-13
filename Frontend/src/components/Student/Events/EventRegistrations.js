@@ -1,31 +1,29 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {jobTypes, applicationStatus} from '../../../enum.js';
 import axios from 'axios';
-import PostingsNavbar from './PostingsNavbar';
-import IndividualApplicant from './IndividualApplicant';
+import EventsNavbar from './EventsNavbar';
+
 
 
 
 
 
 //create the Navbar Component
-class ApplicantList extends Component {
+class EventRegistrations extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            applicantList: []
+            eventRegistrations: []
         }
     }
-
     componentDidMount() {
         axios.defaults.withCredentials = true;
         // make a post request with the user data
-        axios.get('http://localhost:3001/api/job/getApplicantListByJobID/' + this.props.match.params.id)
+        axios.get('http://localhost:3001/api/event/getAllEventRegistrationsByStudentID/' + localStorage.getItem('id'))
             .then(response => {
                 if (response.status === 200) {
                       this.setState({
-                        applicantList: response.data.data      
+                        eventRegistrations: response.data.data      
                       })
                     console.log(response);
                 } else {
@@ -35,30 +33,33 @@ class ApplicantList extends Component {
     }
 
     render() {
-        let applicants = this.state.applicantList.map(applicant => {
+        let participants = this.state.eventRegistrations.map(participant => {
+            // let profileLink="/student/profile/" + participant.studentID;
             return (
-               <IndividualApplicant individualApplicant={applicant} />
+                <tr>
+                {/* <th scope="row"></th> */}
+                <td>{participant.name} </td>
+                <td>{participant.date} </td>
+                <td>{participant.time} </td>
+
+              </tr>
             )
         })
 
         return (
             <div className="handshake-body">
-                <PostingsNavbar />
+               <EventsNavbar/>
                 <div className=" col-sm-offset-1 col-sm-10 jobListCompany">
                 <table className="table">
   <thead>
     <tr>
       <th scope="col">Name</th>
-      <th scope="col">Application Date</th>
-      <th scope="col">View Profile</th>
-      <th scope="col">View Resume</th>
-      <th scope="col">Change Status</th>
-
-
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
     </tr>
   </thead>
   <tbody>
-   {applicants}
+   {participants}
   </tbody>
 </table>
 
@@ -74,4 +75,4 @@ class ApplicantList extends Component {
     }
 }
 
-export default ApplicantList;
+export default EventRegistrations;

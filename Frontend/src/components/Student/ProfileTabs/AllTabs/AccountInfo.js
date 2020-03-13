@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 
 class AccountInfo extends Component {
     constructor(props) {
@@ -6,6 +8,7 @@ class AccountInfo extends Component {
         super(props);
         //maintain the state required for this component
         this.state = {
+            accountID:"",
             phone:"",
             email:"",
             edit:false,
@@ -18,15 +21,15 @@ class AccountInfo extends Component {
     }
 
         componentDidUpdate() {
-            console.log(this.props.accountInfo);
-            if(this.props.accountInfo.email!=this.state.email  && this.state.flag){
+            if(this.state.email !== this.props.accountInfo.email && this.state.flag)
+            {
                 this.setState({
                     email : this.props.accountInfo.email,
                     phone : this.props.accountInfo.phone,
+                    accountID : this.props.accountInfo.accountID,
                     flag:false
                 })
             }
-            
         }
         editButtonChangeHandler = (e) => {
             this.setState({
@@ -36,13 +39,13 @@ class AccountInfo extends Component {
 
         phoneChangeHandler = (e) => {
             this.setState({
-            email: e.target.value
+            phone: e.target.value
             })
         }
 
         emailChangeHandler = (e) => {
             this.setState({
-                phone: e.target.value
+                email: e.target.value
             })
         }
 
@@ -53,6 +56,21 @@ class AccountInfo extends Component {
         }
 
         submitEdit = (e) => {
+            const data = {
+                email: this.state.email,
+                phone: this.state.phone,
+                accountID:this.state.accountID
+            }
+            axios.post('http://localhost:3001/api/account/updateContactInformation'  , data)
+                .then(response => {
+                    console.log(response);
+                    if (response.status == 200) {
+                        //
+                    }
+                }
+                ).catch(ex => {
+                    alert(ex);
+                });
             this.setState({
                 edit: !this.state.edit
             })
@@ -76,10 +94,14 @@ class AccountInfo extends Component {
         )
     }
     else{
+        let editButton=null;
+            if(this.props.editable) {
+                editButton = <button type="button" className="btn btn-default btn-circle pull-right" onClick={this.editButtonChangeHandler}>< i className="glyphicon glyphicon-pencil"></i></button>
+            }
         return(
             <div className="card-body">
               <div className="container-fluid">
-               <button type="button" className="btn btn-default btn-circle pull-right" onClick={this.editButtonChangeHandler}>< i className="glyphicon glyphicon-pencil"></i></button>
+                  {editButton}
                 <h4 className="card-title">Contact Details</h4>
                 <p>Phone : {this.state.phone} </p>
                 <p>Email : {this.state.email}</p>

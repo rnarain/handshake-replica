@@ -12,7 +12,7 @@ const url = require('url');
 var multer = require('multer')
 var storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, '../Uploads/Resumes')
+    cb(null, '../Frontend/public/Uploads/Resumes')
   },
   filename(req, file, cb) {
     cb(null, file.originalname)
@@ -150,7 +150,7 @@ module.exports = {
       const data = {
         studentID: queryObject.studentID,
         jobID: queryObject.jobID,
-        resumeURL: req.file.path,
+        resumeURL:  "/Uploads/Resumes/" +req.file.originalname,
       }
       applyForJob(data, (err, results) => {
         if (err) {

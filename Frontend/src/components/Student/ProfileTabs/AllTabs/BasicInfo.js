@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import {colleges ,majors} from '../../../../enum'
+
 
 class BasicInfo extends Component {
     constructor(props) {
@@ -16,6 +19,8 @@ class BasicInfo extends Component {
             profilePicURL:"",
             flag : true,
             edit:false,
+            profileImg:""
+
         }
 
         this.editButtonChangeHandler = this.editButtonChangeHandler.bind(this);
@@ -32,7 +37,7 @@ class BasicInfo extends Component {
                     yearOfPassing : this.props.entireData.yearOfPassing,
                     degreeType : this.props.entireData.degreeType,
                     major : this.props.entireData.major,
-                    gpa : this.props.entireData.CGPA,
+                    gpa : this.props.entireData.gpa,
                     profilePicURL : this.props.entireData.profilePicURL,
                     flag:false
                 })
@@ -64,9 +69,48 @@ class BasicInfo extends Component {
         }
 
         submitEdit = (e) => {
+            const data = {
+                fname: this.state.fname,
+                lname: this.state.lname,
+                id:localStorage.getItem('id')
+            }
+            axios.post('http://localhost:3001/api/account/updateStudentName'  , data)
+                .then(response => {
+                    console.log(response);
+                    if (response.status == 200) {
+                        //
+                    }
+                }
+                ).catch(ex => {
+                    alert(ex);
+                });
             this.setState({
                 edit: !this.state.edit
             })
+        }
+
+        getProfilePic =(e) =>{
+            this.setState({
+                profileImg: e.target.files[0]
+            })
+            console.log(e.target.files[0])
+        }
+
+        submitProfileEdit = (e) => {
+            const data = new FormData()
+            data.append('file', this.state.profileImg)
+            axios.post('http://localhost:3001/api/account/updateStudentProfilePic/' + localStorage.getItem('id') , data)
+                .then(response => {
+                    console.log(response);
+                    if (response.status == 200) {
+                        this.setState({
+                           profilePicURL : response.data.data
+                        })
+                    }
+                }
+                ).catch(ex => {
+                    alert(ex);
+                });
         }
     
     render() {
@@ -79,7 +123,10 @@ class BasicInfo extends Component {
         return (
             <div className="card-body">
                <div className=" text-center">
-                <p><img className=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image" /></p>
+                 <p><img className="img-fluid img-circle profile-pic" src={this.state.profilePicURL} alt="card image" /></p>
+                 <input type="file" className="form-control" onChange={this.getProfilePic}/>
+                <p><button onClick={this.submitProfileEdit} className="btn btn-success edit-button">Save</button>
+                </p>
                 <input onChange={this.lNameChangeHandler} value={this.state.lname} type="text" className="form-control" name="lname" placeholder="Last Name" />
                 <input onChange={this.fNameChangeHandler} value={this.state.fname} type="text" className="form-control" name="fName" placeholder="First Name" />
                 <p>
@@ -97,10 +144,10 @@ class BasicInfo extends Component {
                 {editButton}
                </div>
                <div className=" text-center">
-               <p><img className=" img-fluid " src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/team/img_01.png" alt="card image" /></p>
+               <p><img className="img-fluid img-circle profile-pic" src={this.state.profilePicURL} alt="No profile picture available" /></p>
                 <h4 className="card-title">{this.state.fname} {this.state.lname}</h4>
-                <h5 className="card-text">{this.state.college}</h5>
-                <h5 className="card-text">{this.state.degreeType} , {this.state.major} </h5>
+                <h5 className="card-text">{colleges[this.state.college]}</h5>
+                <h5 className="card-text">{this.state.degreeType} , { majors[this.state.major]} </h5>
                 <p >Graduates {this.state.yearOfPassing} </p>
                 <p > GPA : {this.state.gpa} / 4 </p>
                 </div>

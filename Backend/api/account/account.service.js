@@ -292,6 +292,134 @@ module.exports = {
           }
         );
       },
+
+      updateStudentSkills: (data, callBack) => {
+        console.log(data);
+        pool.query(
+          `UPDATE studentprofile SET skills=? where studentID = ?`,
+          [
+            data.skills,
+            data.id
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+      },
+
+      
+
+      updateStudentObjective: (data, callBack) => {
+        console.log(data);
+        pool.query(
+          `UPDATE studentprofile SET careerObjective=? where studentID = ?`,
+          [
+            data.careerObjective,
+            data.id
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+      },
+
+      addUpdateStudentEducation: (data, callBack) => {
+        if(data.educationID =="" || data.educationID == null){
+          console.log("update");
+          pool.query(
+            `insert into education(studentID,college,major,yearOfStarting,yearOfPassing,gpa,degreeType ) values(?,?,?,?,?,?,?)`,
+            [
+              data.id,
+              data.college,
+              data.major,
+              data.yearOfStarting,
+              data.yearOfPassing,
+              data.gpa,
+              data.degreeType,
+            ],
+            (error, results) => {
+              if (error) {
+                callBack(error);
+              }
+              return callBack(null, results);
+            }
+          );
+        }
+       
+       else{
+        pool.query(
+          `Update education SET studentID=?,college=?,major=?,yearOfStarting=?,yearOfPassing=?,gpa=?,degreeType=?  where educationID = ?`,
+          [
+            data.id,
+            data.college,
+            data.major,
+            data.yearOfStarting,
+            data.yearOfPassing,
+            data.gpa,
+            data.degreeType,
+            data.educationID,
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+       }
+      },
+
+      addUpdateStudentExperience: (data, callBack) => {
+        if(data.experienceID =="" || data.experienceID == null){
+          pool.query(
+            `insert into experience(studentID,company,location,startDate,endDate,title,description ) values(?,?,?,?,?,?,?)`,
+            [
+              data.id,
+              data.company,
+              data.location,
+              data.startDate,
+              data.endDate,
+              data.title,
+              data.description,
+            ],
+            (error, results) => {
+              if (error) {
+                callBack(error);
+              }
+              return callBack(null, results);
+            }
+          );
+        }
+       
+       else{
+        pool.query(
+          `Update experience SET studentID=?,company=?,location=?,startDate=?,endDate=?,title=?,description=? where experienceID = ?`,
+          [
+              data.id,
+              data.company,
+              data.location,
+              data.startDate,
+              data.endDate,
+              data.title,
+              data.description,
+            data.experienceID,
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, results);
+          }
+        );
+       }
+      },
+
       getAllStudents :(callBack)=>{
         pool.query(
           `SELECT * FROM studentprofile as SP
@@ -325,6 +453,23 @@ module.exports = {
         console.log(data);
         pool.query(
           `UPDATE companyprofile SET profilePicURL=? where companyID = ?`,
+          [
+            data.profilePicURL,
+            data.id
+          ],
+          (error, results) => {
+            if (error) {
+              callBack(error);
+            }
+            return callBack(null, data.profilePicURL);
+          }
+        );
+      },
+
+      updateStudentProfilePic :(data, callBack) => {
+        console.log(data);
+        pool.query(
+          `UPDATE studentprofile SET profilePicURL=? where studentID = ?`,
           [
             data.profilePicURL,
             data.id

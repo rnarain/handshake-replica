@@ -19,11 +19,14 @@ class Navbar extends Component {
     render(){
         let navLinks = null;
         if(localStorage.getItem('type')==0){
+            let profileLink = "/student/profile/" + localStorage.getItem('id');
             navLinks= (
                 <ul className="nav navbar-nav navbar-right">
-                <li><Link to="/student/home">Profile</Link></li>
+                <li><Link to={profileLink}>Profile</Link></li>
                         <li><Link to="/student/postings">Jobs</Link></li>
                         <li><Link to="/student/events">Events</Link></li>
+                        <li><Link to="/student/students">Students</Link></li>
+
                 </ul>
             );
         }

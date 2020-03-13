@@ -2,10 +2,12 @@ const router = require("express").Router();
 // const { checkToken } = require("../../auth/token_validation");
 const {
   createEvent,
-  // getJobsByStudentID,
+  getAllEventsByStudentID,
    getEventsByCompanyID,
   // deleteJob,
    getParticpantListByEventID,
+   getAllEventRegistrationsByStudentID,
+   registerForEvent
   // changeApplicationStatus,
   // applyForJob
 //   login,
@@ -16,8 +18,13 @@ const {
 } = require("./event.controller");
 // router.get("/", checkToken, getUsers);s
  router.post("/createEvent", createEvent);
+ router.post("/registerForEvent", registerForEvent);
+
 //  router.get("/getJobsByStudentID/:id",getJobsByStudentID);
   router.get("/getEventsByCompanyID/:id",getEventsByCompanyID);
+  router.get("/getAllEventRegistrationsByStudentID/:id",getAllEventRegistrationsByStudentID);
+  router.get("/getAllEventsByStudentID/:id",getAllEventsByStudentID);
+
 //  router.post("/applyForJob",applyForJob);
   router.get("/getParticpantListByEventID/:id",getParticpantListByEventID);
 //  router.delete("/deleteJob/:id",deleteJob);

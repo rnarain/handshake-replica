@@ -7,6 +7,11 @@ const {
     getAccountDetails,
     updateStudentName,
     updateCompanyProfilePic,
+    updateStudentProfilePic,
+    updateStudentObjective,
+    addUpdateStudentEducation,
+    addUpdateStudentExperience,
+    updateStudentSkills,
     updateCompanyDetails,
     updateContactInformation,
     getAllStudents,
@@ -124,13 +129,13 @@ var upload = multer({
         studentObj.accountInfo = Accresults;
       });
       });
-      // getExperienceDetails(id,(err, results) => {
-      //   if (err) {
-      //     console.log(err);
-      //     return;
-      //   }
-      //   studentObj.experience = results;
-      // });
+      getExperienceDetails(id,(err, results) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        studentObj.experience = results;
+      });
       getEducationDetails(id,(err, results) => {
         if (err) {
           console.log(err);
@@ -151,6 +156,74 @@ var upload = multer({
     updateStudentName: (req, res) => {
       const body = req.body;
       updateStudentName(body, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection errror"
+          });
+        }
+        return res.status(200).json({
+          success: 1,
+          data: results
+        });
+      });
+    },
+
+    updateStudentSkills: (req, res) => {
+      const body = req.body;
+      updateStudentSkills(body, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection errror"
+          });
+        }
+        return res.status(200).json({
+          success: 1,
+          data: results
+        });
+      });
+    },
+
+    updateStudentObjective: (req, res) => {
+      const body = req.body;
+      updateStudentObjective(body, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection errror"
+          });
+        }
+        return res.status(200).json({
+          success: 1,
+          data: results
+        });
+      });
+    },
+
+   addUpdateStudentEducation: (req, res) => {
+      const body = req.body;
+      addUpdateStudentEducation(body, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection errror"
+          });
+        }
+        return res.status(200).json({
+          success: 1,
+          data: results
+        });
+      });
+    },
+
+    addUpdateStudentExperience: (req, res) => {
+      const body = req.body;
+      addUpdateStudentExperience(body, (err, results) => {
         if (err) {
           console.log(err);
           return res.status(500).json({
@@ -207,6 +280,33 @@ var upload = multer({
     });
     },
 
+    updateStudentProfilePic: (req, res) => {
+      upload(req, res, function (err) {
+        if (err) {
+          return res.status(500).json(err);
+        }
+        console.log(req.file.mimetype)
+        const data = {
+          profilePicURL: "/Uploads/Profile-Pic/" +req.file.originalname,
+          id:req.params.id
+        }
+        updateStudentProfilePic(data, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({
+            success: 0,
+            message: "Database connection errror"
+          });
+        }
+        return res.status(200).json({
+          success: 1,
+          data: results
+        });
+      });
+    });
+    },
+
+
     getCompanyProfileDetails : (req,res)=>{
       const id = req.params.id;
       
@@ -249,4 +349,23 @@ var upload = multer({
         })
       });
     },
+
+    updateContactInformation: (req, res) => {
+      const body = req.body;
+        updateContactInformation (body, (err, results) => {
+          if (err) {
+            console.log(err);
+            return res.status(500).json({
+              success: 0,
+              message: "Database connection errror"
+            });
+          }
+          return res.status(200).json({
+            success: 1,
+            data: results
+          });
+        })
+    },
+
+    
 }

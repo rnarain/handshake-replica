@@ -23,25 +23,57 @@ module.exports = {
       }
     );
   },
-//   getJobsByStudentID: (id,callBack) => {
-//     pool.query(
-//       `select cp.name,jb.companyID,jb.jobID,jb.location,jb.postedDate,jb.deadLineDate,jb.salary,jb.description,jb.category,jb.title 
-//       from job AS jb 
-//       INNER JOIN companyprofile AS cp 
-//       ON jb.companyID = cp.companyID 
-//       INNER JOIN jobapplication AS ja ON jb.jobID <> ja.jobID or ja.studentID <> ?
-// `,
-//       [
-//         id
-//       ],
-//       (error, results, fields) => {
-//         if (error) {
-//           callBack(error);
-//         }
-//         return callBack(null, results);
-//       }
-//     );
-//   },
+
+  registerForEvent: (data, callBack) => {
+    pool.query(
+      `insert into eventparticipant(studentID,eventID) 
+                values(?,?)`,
+      [
+        data.studentID,
+        data.eventID,
+      ],
+      (error, results, fields) => {
+        console.log(results);
+        if (error) {
+          callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
+  getAllEventsByStudentID: (id,callBack) => {
+    pool.query(
+      `select * from event AS et 
+`,
+      [
+        id
+      ],
+      (error, results, fields) => {
+        if (error) {
+          callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
+
+  getAllEventRegistrationsByStudentID: (id,callBack) => {
+    pool.query(
+      `select * from eventparticipant as ep
+      INNER JOIN event as et ON ep.eventID = et.eventID
+      where studentID = ?
+`,
+      [
+        id
+      ],
+      (error, results) => {
+        if (error) {
+          callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
 
    getEventsByCompanyID: (id,callBack) => {
     pool.query(

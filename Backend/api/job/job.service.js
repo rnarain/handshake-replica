@@ -75,7 +75,7 @@ module.exports = {
 
   getApplicantListByJobID: (id,callBack) => {
     pool.query(
-      `select JA.jobApplicationID,JA.studentID,JA.status,JA.applicationDate,SP.fname,SP.lname from jobapplication JA INNER JOIN studentprofile SP ON SP.studentID = JA.studentID where jobID =? 
+      `select JA.jobApplicationID,JA.studentID,JA.status,JA.applicationDate,JA.resumeURL,SP.fname,SP.lname from jobapplication JA INNER JOIN studentprofile SP ON SP.studentID = JA.studentID where jobID =? 
 `,
       [
        id

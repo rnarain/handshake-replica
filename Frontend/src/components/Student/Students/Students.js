@@ -13,7 +13,7 @@ import cookie from 'react-cookies';
 
 
 
-class Student extends Component {
+class Students extends Component {
     constructor(props) {
         //Call the constrictor of Super class i.e The Component
         super(props);
@@ -151,16 +151,15 @@ class Student extends Component {
                 worksAt =<p><i className="glyphicon glyphicon-briefcase"></i> No work experience listed</p>
 
               }
-              let profileLink = '/student/profile/' + student.studentID
             return (
                 <div className="box-part">
                     <div className="card-body container-fluid">
                         <div className="col-sm-2">
-                        <img className=" img-fluid img-circle profile-img" src={student.profilePicURL} alt="No profile image available" />
+                            <img className=" img-fluid img-circle profile-img" src={student.profilePicURL} alt="No profile image available" />
                         </div>
                         <div className="col-sm-10">
                             <div className="row">
-                            <a href={profileLink} target="_blank"><h4 className="card-title">{student.fname} {student.lname}</h4></a>
+                            <a href=""><h4 className="card-title">{student.fname} {student.lname}</h4></a>
                             <h5 className="card-text">{colleges[student.college]}</h5>
                             </div>
                             <div className="row">
@@ -275,4 +274,4 @@ class Student extends Component {
     }
 }
 
-export default Student;
+export default Students;

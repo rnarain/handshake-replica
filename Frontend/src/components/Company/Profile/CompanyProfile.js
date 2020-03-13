@@ -15,7 +15,8 @@ class CompanyProfile extends Component {
             email: "",
             phone: "",
             profilePicEdit: false,
-            accountID:""
+            accountID:"",
+            profileImg:""
         }
 
         this.editButtonChangeHandler = this.editButtonChangeHandler.bind(this);

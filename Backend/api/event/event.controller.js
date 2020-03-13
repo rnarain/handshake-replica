@@ -2,8 +2,11 @@ const {
   createEvent,
   // getJobsByStudentID,
   getEventsByCompanyID,
+  getAllEventsByStudentID,
+  registerForEvent,
   // deleteJob,
   getParticpantListByEventID,
+  getAllEventRegistrationsByStudentID
   // changeApplicationStatus,
   // applyForJob
 } = require("./event.service");
@@ -19,6 +22,22 @@ module.exports = {
         });
       }
       return res.status(201).json({
+        success: 1,
+        data: results
+      });
+    });
+  },
+
+  registerForEvent: (req, res) => {
+    registerForEvent(req.body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: 0,
+          message: "Database connection errror"
+        });
+      }
+      return res.status(200).json({
         success: 1,
         data: results
       });
@@ -60,11 +79,6 @@ module.exports = {
 
   getParticpantListByEventID: (req, res) => {
     const id = req.params.id;
-    // return res.json({
-    //   success: 0,
-    //   data: "ID cannot be null"
-    // });
-
     getParticpantListByEventID(id, (err, results) => {
       if (err) {
         console.log(err);
@@ -77,42 +91,37 @@ module.exports = {
     });
   },
 
-  // deleteJob: (req, res) => {
-  //   const id = req.params.id;
-  //   deleteJob(id, (err, results) => {
-  //     if (err) {
-  //       console.log(err);
-  //       return;
-  //     }
-  //     if (results.affectedRows == 0) {
-  //       console.log(results);
-  //       return res.json({
-  //         success: 0,
-  //         message: "Record Not Found"
-  //       });
-  //     }
-  //     return res.json({
-  //       success: 1,
-  //       message: "Job deleted successfully"
-  //     });
-  //   });
-  // },
+  getAllEventsByStudentID: (req, res) => {
+    const id = req.params.id;
+    getAllEventsByStudentID(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return res.json({
+        success: 1,
+        data: results
+      });
+    });
+  },
 
-  // changeApplicationStatus: (req, res) => {
-  //   changeApplicationStatus(req.body, (err, results) => {
-  //     if (err) {
-  //       console.log(err);
-  //       return res.status(500).json({
-  //         success: 0,
-  //         message: "Database connection errror"
-  //       });
-  //     }
-  //     return res.status(200).json({
-  //       success: 1,
-  //       data: results
-  //     });
-  //   });
-  // },
+  getAllEventRegistrationsByStudentID: (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+
+    getAllEventRegistrationsByStudentID(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return res.json({
+        success: 1,
+        data: results
+      });
+    });
+  },
+
+ 
 
   // applyForJob: (req, res) => {
   //   upload(req, res, function (err) {

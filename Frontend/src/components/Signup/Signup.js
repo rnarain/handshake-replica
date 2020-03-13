@@ -3,6 +3,8 @@ import '../../App.css';
 import axios from 'axios';
 import cookie from 'react-cookies';
 import { Redirect } from 'react-router';
+import { colleges, majors } from '../../enum';
+
 
 //Define a Signup Component
 class Signup extends Component {
@@ -121,8 +123,8 @@ class Signup extends Component {
 
         //redirect based on successful Signup
         let redirectVar = null;
-        if (cookie.load('cookie')) {
-            redirectVar = <Redirect to="/student/home" />
+        if (this.state.authFlag) {
+            redirectVar = <Redirect to="/login" />
         }
 
         var years = [];
@@ -134,6 +136,32 @@ class Signup extends Component {
                 <option key= {year} value={year}> {year} </option>
             )
         })
+
+        let collegeSelect =
+        (
+            <select onChange={this.collegeChangeHandler} value={this.state.college} className="form-control">
+                <option key={colleges[0]} value="0" > {colleges[0]} </option>
+                <option key={colleges[1]} value="1"> {colleges[1]} </option>
+                <option key={colleges[2]} value="2"> {colleges[2]} </option>
+                <option key={colleges[3]} value="3"> {colleges[3]} </option>
+            </select>
+        );
+
+    let majorSelect =
+        (
+            <select onChange={this.majorChangeHandler} value={this.state.major} className="form-control">
+                <option key={majors[0]} value="0" >{majors[0]} </option>
+                <option key={majors[1]} value="1"> {majors[1]} </option>
+                <option key={majors[2]} value="2"> {majors[2]} </option>
+                <option key={majors[3]} value="3"> {majors[3]} </option>
+                <option key={majors[4]} value="4" >{majors[4]} </option>
+                <option key={majors[5]} value="5"> {majors[5]} </option>
+                <option key={majors[6]} value="6"> {majors[6]} </option>
+                <option key={majors[7]} value="7"> {majors[7]} </option>
+                <option key={majors[8]} value="8" >{majors[8]} </option>
+            </select>
+        );
+
         return (
             <div className="container">
                 {redirectVar}
@@ -164,7 +192,8 @@ class Signup extends Component {
                                 <form>
                                     <div className="form-group col-md-12">
                                         <label >College</label>
-                                        <input onChange={this.collegeChangeHandler} type="text" className="form-control" name="college" placeholder="College" />
+                                        {collegeSelect}
+                                        {/* <input onChange={this.collegeChangeHandler} type="text" className="form-control" name="college" placeholder="College" /> */}
                                     </div>
                                     <div className="form-group">
                                         <div className="col-md-6">
@@ -179,7 +208,8 @@ class Signup extends Component {
                                     <div className="form-group">
                                         <div className="col-md-6">
                                             <label >Major</label>
-                                            <input type="text" onChange={this.majorChangeHandler} className="form-control" placeholder="Major" />
+                                            {majorSelect}
+                                            {/* <input type="text" onChange={this.majorChangeHandler} className="form-control" placeholder="Major" /> */}
                                         </div>
                                         <div className="col-md-6">
                                             <label >Year of passing</label>
