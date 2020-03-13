@@ -61,7 +61,7 @@ class AccountInfo extends Component {
                 phone: this.state.phone,
                 accountID:this.state.accountID
             }
-            axios.post('http://localhost:3001/api/account/updateContactInformation'  , data)
+            axios.post('http://3.94.78.104:3001/api/account/updateContactInformation'  , data)
                 .then(response => {
                     console.log(response);
                     if (response.status == 200) {

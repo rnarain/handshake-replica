@@ -74,7 +74,7 @@ class BasicInfo extends Component {
                 lname: this.state.lname,
                 id:localStorage.getItem('id')
             }
-            axios.post('http://localhost:3001/api/account/updateStudentName'  , data)
+            axios.post('http://3.94.78.104:3001/api/account/updateStudentName'  , data)
                 .then(response => {
                     console.log(response);
                     if (response.status == 200) {
@@ -99,7 +99,7 @@ class BasicInfo extends Component {
         submitProfileEdit = (e) => {
             const data = new FormData()
             data.append('file', this.state.profileImg)
-            axios.post('http://localhost:3001/api/account/updateStudentProfilePic/' + localStorage.getItem('id') , data)
+            axios.post('http://3.94.78.104:3001/api/account/updateStudentProfilePic/' + localStorage.getItem('id') , data)
                 .then(response => {
                     console.log(response);
                     if (response.status == 200) {

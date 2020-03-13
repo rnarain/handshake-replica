@@ -101,7 +101,7 @@ class Experience extends Component {
 
 
         console.log(data);
-        axios.post('http://localhost:3001/api/account/addUpdateStudentExperience', data)
+        axios.post('http://3.94.78.104:3001/api/account/addUpdateStudentExperience', data)
             .then(response => {
                 console.log(response);
                 if (response.status == 200) {

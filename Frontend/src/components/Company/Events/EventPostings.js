@@ -88,7 +88,7 @@ class EventPostings extends Component {
         // set the with credentials to true
         axios.defaults.withCredentials = true;
         // make a post request with the user data
-        axios.post('http://localhost:3001/api/Event/createEvent', data)
+        axios.post('http://3.94.78.104:3001/api/Event/createEvent', data)
             .then(response => {
                 if (response.status === 201) {
                       this.setState({

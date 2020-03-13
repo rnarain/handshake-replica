@@ -37,7 +37,7 @@ class Home extends Component {
         async componentWillMount() {
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        await axios.get('http://localhost:3001/api/account/getStudentDetails/' + this.props.match.params.id)
+        await axios.get('http://3.94.78.104:3001/api/account/getStudentDetails/' + this.props.match.params.id)
             .then(response => {
                 console.log(response);
                 let studentProfile =  response.data.data.studentprofile[0];

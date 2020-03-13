@@ -30,7 +30,7 @@ class Skills extends Component {
                 skills: this.state.skills,
                 id:localStorage.getItem('id')
             }
-            axios.post('http://localhost:3001/api/account/updateStudentSkills', data)
+            axios.post('http://3.94.78.104:3001/api/account/updateStudentSkills', data)
                 .then(response => {
                     console.log(response);
                     if (response.status == 200) {

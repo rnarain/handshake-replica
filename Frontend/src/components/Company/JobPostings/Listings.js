@@ -30,7 +30,7 @@ class Listings extends Component {
     componentDidMount() {
         axios.defaults.withCredentials = true;
         // make a post request with the user data
-        axios.get('http://localhost:3001/api/job/getJobsByCompanyID/' + localStorage.getItem('id'))
+        axios.get('http://3.94.78.104:3001/api/job/getJobsByCompanyID/' + localStorage.getItem('id'))
             .then(response => {
                 if (response.status === 200) {
                     this.setState({

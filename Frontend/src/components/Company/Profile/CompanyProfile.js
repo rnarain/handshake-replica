@@ -29,7 +29,7 @@ class CompanyProfile extends Component {
     async componentWillMount() {
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        await axios.get('http://localhost:3001/api/account/getCompanyProfileDetails/' + this.props.match.params.id)
+        await axios.get('http://3.94.78.104:3001/api/account/getCompanyProfileDetails/' + this.props.match.params.id)
             .then(response => {
                 console.log(response);
                 let companyProfile = response.data.data[0];
@@ -121,7 +121,7 @@ class CompanyProfile extends Component {
             accountID:this.state.accountID,
             companyID:localStorage.getItem('id'),
         }
-        axios.post('http://localhost:3001/api/account/updateCompanyDetails', data)
+        axios.post('http://3.94.78.104:3001/api/account/updateCompanyDetails', data)
             .then(response => {
                 console.log(response);
                 if (response.status == 200) {
@@ -151,7 +151,7 @@ class CompanyProfile extends Component {
     submitProfileEdit = (e) => {
         const data = new FormData()
         data.append('file', this.state.profileImg)
-        axios.post('http://localhost:3001/api/account/updateCompanyProfilePic/' + localStorage.getItem('id') , data)
+        axios.post('http://3.94.78.104:3001/api/account/updateCompanyProfilePic/' + localStorage.getItem('id') , data)
             .then(response => {
                 console.log(response);
                 if (response.status == 200) {

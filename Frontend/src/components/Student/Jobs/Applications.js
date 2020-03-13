@@ -30,7 +30,7 @@ class Applications extends Component {
 
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        await axios.get('http://localhost:3001/api/jobApplication/getAppliedJobsByStudentID/' + 17)
+        await axios.get('http://3.94.78.104:3001/api/jobApplication/getAppliedJobsByStudentID/' + 17)
             .then(response => {
                 this.setState({
                     jobList: response.data.data,

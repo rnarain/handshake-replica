@@ -34,7 +34,7 @@ class Student extends Component {
     async componentWillMount() {
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        await axios.get('http://localhost:3001/api/account/getAllStudents')
+        await axios.get('http://3.94.78.104:3001/api/account/getAllStudents')
             .then(response => {
                 console.log(response);
                 this.setState({
