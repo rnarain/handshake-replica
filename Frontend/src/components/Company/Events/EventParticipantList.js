@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import EventPostingsNavbar from './EventPostingsNavbar';
+import backendServer from '../../../webConfig'
+
 
 
 
@@ -19,7 +21,7 @@ class participantList extends Component {
     componentDidMount() {
         axios.defaults.withCredentials = true;
         // make a post request with the user data
-        axios.get('http://3.94.78.104:3001/api/event/getParticpantListByEventID/' + this.props.match.params.id)
+        axios.get(`${backendServer}/api/event/getParticpantListByEventID/${this.props.match.params.id}`)
             .then(response => {
                 if (response.status === 200) {
                       this.setState({

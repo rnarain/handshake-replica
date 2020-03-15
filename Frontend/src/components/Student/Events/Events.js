@@ -10,6 +10,8 @@ import {colleges ,majors, skills} from '../../../enum'
 import cookie from 'react-cookies';
 import {dateTimeToDate} from '../../../helperMethods'
 import EventsNavbar from './EventsNavbar';
+import backendServer from '../../../webConfig'
+
 
 
 
@@ -34,7 +36,7 @@ class Events extends Component {
     async componentWillMount() {
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        await axios.get('http://3.94.78.104:3001/api/event/getAllEventsByStudentID/'+localStorage.getItem('id'))
+        await axios.get(`${backendServer}/api/event/getAllEventsByStudentID/${localStorage.getItem('id')}`)
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -71,7 +73,7 @@ class Events extends Component {
             eventID:e,
             studentID: localStorage.getItem('id')
         }
-        axios.post('http://3.94.78.104:3001/api/event/registerForEvent',data)
+        axios.post(`${backendServer}/api/event/registerForEvent`,data)
             .then(response => {
                 this.setState({
                     buttonText : "Registered"

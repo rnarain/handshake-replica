@@ -3,6 +3,8 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 import PostingsNavbar from './PostingsNavbar';
 import ApplicationJobList from './ApplicationJobList';
+import backendServer from '../../../webConfig'
+
 
 
 
@@ -30,7 +32,7 @@ class Applications extends Component {
 
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        await axios.get('http://3.94.78.104:3001/api/jobApplication/getAppliedJobsByStudentID/' + 17)
+        await axios.get(`${backendServer}/api/jobApplication/getAppliedJobsByStudentID/${localStorage.getItem('id')}`)
             .then(response => {
                 this.setState({
                     jobList: response.data.data,

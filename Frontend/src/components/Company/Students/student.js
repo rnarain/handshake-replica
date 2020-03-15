@@ -8,6 +8,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {colleges ,majors, skills} from '../../../enum'
 import cookie from 'react-cookies';
+import backendServer from '../../../webConfig'
+
 
 
 
@@ -34,7 +36,7 @@ class Student extends Component {
     async componentWillMount() {
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        await axios.get('http://3.94.78.104:3001/api/account/getAllStudents')
+        await axios.get(`${backendServer}/api/account/getAllStudents`)
             .then(response => {
                 console.log(response);
                 this.setState({

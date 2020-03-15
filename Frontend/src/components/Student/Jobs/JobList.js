@@ -6,6 +6,8 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { jobTypes } from '../../../enum.js'
 import axios from 'axios';
+import backendServer from '../../../webConfig'
+
 
 
 
@@ -87,7 +89,7 @@ class JobList extends Component {
                 preConfirm: (file) => {
                     const data = new FormData() 
                     data.append('file', file)
-                    axios.post('http://3.94.78.104:3001/api/job/applyForJob?studentID='+localStorage.getItem('id')+"&jobID="+this.state.selectedJob.jobID, data)
+                    axios.post(`${backendServer}/api/job/applyForJob?studentID=${localStorage.getItem('id')}&jobID=${this.state.selectedJob.jobID}`, data)
                         .then(response => {
                             if(response.status==201){
                                 this.setState({

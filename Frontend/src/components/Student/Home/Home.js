@@ -6,7 +6,7 @@ import Education from '../ProfileTabs/AllTabs/Education';
 import Experience from '../ProfileTabs/AllTabs/Experience';
 import Skills from '../ProfileTabs/AllTabs/Skills';
 import axios from 'axios';
-
+import backendServer from "../../../webConfig";
 
 
 class Home extends Component {
@@ -37,7 +37,7 @@ class Home extends Component {
         async componentWillMount() {
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        await axios.get('http://3.94.78.104:3001/api/account/getStudentDetails/' + this.props.match.params.id)
+        await axios.get(`${backendServer}/api/account/getStudentDetails/${this.props.match.params.id}`)
             .then(response => {
                 console.log(response);
                 let studentProfile =  response.data.data.studentprofile[0];

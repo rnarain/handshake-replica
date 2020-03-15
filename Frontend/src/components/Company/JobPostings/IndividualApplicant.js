@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import {jobTypes, applicationStatus} from '../../../enum.js';
 import axios from 'axios';
 import PostingsNavbar from './PostingsNavbar';
+import backendServer from '../../../webConfig'
+
 
 
 
@@ -29,7 +31,7 @@ class IndividualApplicant extends Component {
         //change application status
         axios.defaults.withCredentials = true;
         // make a post request with the user data
-        axios.post('http://3.94.78.104:3001/api/job/changeApplicationStatus',data)
+        axios.post(`${backendServer}/api/job/changeApplicationStatus`,data)
             .then(response => {
                 if (response.status === 200) {
                     this.setState({

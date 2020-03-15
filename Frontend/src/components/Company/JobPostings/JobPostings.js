@@ -5,6 +5,8 @@ import PostingsNavbar from './PostingsNavbar';
 import {jobTypes} from '../../../enum.js'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import backendServer from '../../../webConfig'
+
 
 const MySwal = withReactContent(Swal)
 
@@ -89,7 +91,7 @@ class JobPostings extends Component {
         // set the with credentials to true
         axios.defaults.withCredentials = true;
         // make a post request with the user data
-        axios.post('http://3.94.78.104:3001/api/job/createJob', data)
+        axios.post(`${backendServer}/api/job/createJob`, data)
             .then(response => {
                 if (response.status === 201) {
                     MySwal.fire({

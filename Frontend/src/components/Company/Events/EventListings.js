@@ -3,6 +3,8 @@ import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import EventPostingsNavbar from './EventPostingsNavbar';
 import {dateTimeToDate} from '../../../helperMethods';
+import backendServer from '../../../webConfig'
+
 
 
 
@@ -30,7 +32,7 @@ class EventListings extends Component {
     componentDidMount() {
         axios.defaults.withCredentials = true;
         // make a post request with the user data
-        axios.get('http://3.94.78.104:3001/api/event/getEventsByCompanyID/' + localStorage.getItem('id'))
+        axios.get(`${backendServer}/api/event/getEventsByCompanyID/${localStorage.getItem('id')}`)
             .then(response => {
                 if (response.status === 200) {
                     this.setState({

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import backendServer from '../../../../webConfig'
+
 
 class CareerObjective extends Component {
     constructor(props) {
@@ -30,7 +32,7 @@ class CareerObjective extends Component {
                 careerObjective: this.state.careerObjective,
                 id:localStorage.getItem('id')
             }
-            axios.post('http://3.94.78.104:3001/api/account/updateStudentObjective', data)
+            axios.post(`${backendServer}/api/account/updateStudentObjective`, data)
                 .then(response => {
                     console.log(response);
                     if (response.status == 200) {

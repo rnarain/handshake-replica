@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import backendServer from '../../../../webConfig'
 import {dateTimeToDate} from '../../../../helperMethods';
 
 
@@ -101,7 +101,7 @@ class Experience extends Component {
 
 
         console.log(data);
-        axios.post('http://3.94.78.104:3001/api/account/addUpdateStudentExperience', data)
+        axios.post(`${backendServer}/api/account/addUpdateStudentExperience`, data)
             .then(response => {
                 console.log(response);
                 if (response.status == 200) {

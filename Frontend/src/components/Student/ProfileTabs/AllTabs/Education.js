@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { colleges, majors } from '../../../../enum';
 import axios from 'axios';
+import backendServer from '../../../../webConfig'
+
 
 import {dateTimeToDate} from '../../../../helperMethods';
 
@@ -102,7 +104,7 @@ class Education extends Component {
 
 
         console.log(data);
-        axios.post('http://3.94.78.104:3001/api/account/addUpdateStudentEducation', data)
+        axios.post(`${backendServer}/api/account/addUpdateStudentEducation`, data)
             .then(response => {
                 console.log(response);
                 if (response.status == 200) {

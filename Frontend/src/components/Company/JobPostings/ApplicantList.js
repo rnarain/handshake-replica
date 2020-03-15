@@ -4,6 +4,8 @@ import {jobTypes, applicationStatus} from '../../../enum.js';
 import axios from 'axios';
 import PostingsNavbar from './PostingsNavbar';
 import IndividualApplicant from './IndividualApplicant';
+import backendServer from '../../../webConfig'
+
 
 
 
@@ -21,7 +23,7 @@ class ApplicantList extends Component {
     componentDidMount() {
         axios.defaults.withCredentials = true;
         // make a post request with the user data
-        axios.get('http://3.94.78.104:3001/api/job/getApplicantListByJobID/' + this.props.match.params.id)
+        axios.get(`${backendServer}/api/job/getApplicantListByJobID/${this.props.match.params.id}`)
             .then(response => {
                 if (response.status === 200) {
                       this.setState({
